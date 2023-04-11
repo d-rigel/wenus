@@ -1,13 +1,13 @@
 import mongoose, { Model, Document } from 'mongoose';
 import { QueryResult } from '../paginate/paginate';
-// import { IUserDoc } from '../user/user.interfaces';
+import { IUserDoc } from '../user/user.interfaces';
 
 export interface IArticle {
   title: string;
   article: string;
-  //   creator: IUserDoc;
-  creator: string;
-  images: string;
+  creator: IUserDoc;
+  // creator: string;
+  image: string;
   comments: string;
   likes: number;
   createdAt: Date;

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import toJSON from '../toJSON/toJSON';
 import { paginate } from '../paginate';
-import { IArticleModel, IArticleDoc } from './posts.interface';
+import { IArticleModel, IArticleDoc } from './article.interface';
 
 const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>({
   title: {
@@ -15,21 +15,21 @@ const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>({
   creator: {
     type: String,
   },
-  //   creator: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'User',
-  //   },
-  images: {
+  image: {
     type: String,
   },
   likes: {
     type: Number,
+    default: 0,
   },
+  comments: [String],
+
   articleId: {
     type: String,
   },
   createdAt: {
     type: Date,
+    default: new Date(),
   },
 });
 
@@ -42,10 +42,10 @@ articleSchema.plugin(paginate);
 //  */
 articleSchema.static('generateArticleId', async function (): Promise<string> {
   const article = await this.findOne().sort({ createdAt: -1 }).allowDiskUse(true);
-  const articleId = article ? article.articleId : 'EL00000000';
+  const articleId = article ? article.articleId : 'AT00000000';
   const articleIdNumber = parseInt(articleId.substring(2), 10);
   const newArticleIdNumber = articleIdNumber + 1;
-  const newArtilceId = `EL${newArticleIdNumber.toString().padStart(8, '0')}`;
+  const newArtilceId = `AT${newArticleIdNumber.toString().padStart(8, '0')}`;
   return newArtilceId;
 });
 
