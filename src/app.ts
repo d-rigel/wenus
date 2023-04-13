@@ -14,7 +14,7 @@ import { morgan } from './modules/logger';
 // import { authLimiter } from './modules/utils';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
 // import routes from './routes/v1';
-
+import routes from './routes/index';
 const app: Express = express();
 
 if (config.env !== 'test') {
@@ -52,7 +52,7 @@ app.use(passport.initialize());
 // }
 
 // v1 api routes
-// app.use('/v1', routes);
+app.use('/v1', routes);
 
 // send back a 404 error for any unknown api request
 app.use((_req: Request, _res: Response, next: NextFunction) => {

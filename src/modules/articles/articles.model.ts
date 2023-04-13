@@ -3,35 +3,40 @@ import toJSON from '../toJSON/toJSON';
 import { paginate } from '../paginate';
 import { IArticleModel, IArticleDoc } from './article.interface';
 
-const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>({
-  title: {
-    type: String,
-    required: true,
-  },
-  article: {
-    type: String,
-    required: true,
-  },
-  creator: {
-    type: String,
-  },
-  image: {
-    type: String,
-  },
-  likes: {
-    type: Number,
-    default: 0,
-  },
-  comments: [String],
+const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    article: {
+      type: String,
+      required: true,
+    },
+    creator: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    comments: [String],
 
-  articleId: {
-    type: String,
+    articleId: {
+      type: String,
+    },
+    createdTime: {
+      type: Date,
+      default: new Date(),
+    },
   },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 articleSchema.plugin(toJSON);
 articleSchema.plugin(paginate);

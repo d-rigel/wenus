@@ -2,8 +2,6 @@ import mongoose from 'mongoose';
 import app from './app';
 import config from './config/config';
 import logger from './modules/logger/logger';
-// config.mongoose.url
-// 'mongodb://localhost/wenus'
 
 let server: any;
 mongoose.connect(config.mongoose.url).then(() => {

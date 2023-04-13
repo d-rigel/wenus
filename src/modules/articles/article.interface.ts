@@ -10,7 +10,8 @@ export interface IArticle {
   image: string;
   comments: string;
   likes: number;
-  createdAt: Date;
+  // createdAt: Date;
+  createdTime: Date;
   articleId: string;
 }
 
