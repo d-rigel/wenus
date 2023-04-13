@@ -1,14 +1,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-cycle */
 /* eslint-disable @typescript-eslint/return-await */
-// import mongoose from 'mongoose';
-// import httpStatus from 'http-status';
+import mongoose from 'mongoose';
+import httpStatus from 'http-status';
 import Article from './articles.model';
 import { IOptions, QueryResult } from '../paginate/paginate';
 import { IArticleDoc, NewArticle } from './article.interface';
-import mongoose from 'mongoose';
-// UpdateArticleBody
-// import { ApiError } from '../errors';
+import { ApiError } from '../errors';
 
 /**
  * Create an article
@@ -35,7 +33,7 @@ export const queryArticles = async (filter: Record<string, any>, options: IOptio
 /**
  * Get article by id
  * @param {string | mongoose.ObjectId} id - Article id
- * @returns {Promise<IElectionDoc[]>}
+ * @returns {Promise<IArticleDoc[]>}
  */
 export const getArticleById = async (id: string | mongoose.Types.ObjectId): Promise<IArticleDoc | null> => {
   if (mongoose.Types.ObjectId.isValid(id)) {
@@ -47,10 +45,38 @@ export const getArticleById = async (id: string | mongoose.Types.ObjectId): Prom
 };
 
 /**
- * Delete an article
- * @param {NewElection} articleBody
+ * Delete article by id
+ * @param {mongoose.Types.ObjectId} id
  * @returns {Promise<IArticleDoc>}
  */
-export const deleteArticle = async (articleId: mongoose.Types.ObjectId): Promise<IArticleDoc | null> => {
-  return await Article.findByIdAndDelete(articleId);
+export const deleteArticle = async (
+  id: mongoose.Types.ObjectId | string
+): Promise<{ deletedCount: number; acknowledged: boolean }> => {
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const result = await Article.deleteOne({ _id: id });
+    return result;
+  }
+  const result = await Article.deleteOne({ articleId: id });
+  return result;
+};
+
+/**
+ * Update article by id
+ * @param {string | mongoose.ObjectId} id - Article id
+ * @param {NewTraining} articleBody
+ * @returns {Promise<IArticleDoc>}
+ */
+export const updateArticleById = async (
+  id: string | mongoose.Types.ObjectId,
+  articleBody: NewArticle
+): Promise<IArticleDoc | null> => {
+  if (await Article.isArticleExist(articleBody.title)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Article already exist');
+  }
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const update = await Article.findOneAndUpdate({ _id: id }, articleBody, { new: true });
+    return update;
+  }
+  const update = Article.findOneAndUpdate({ articleId: id }, articleBody, { new: true });
+  return update;
 };

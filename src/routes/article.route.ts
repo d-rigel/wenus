@@ -10,5 +10,9 @@ router
   .post(validate(articleValidation.createArticle), articleController.createArticle)
   .get(validate(articleValidation.getArticles), articleController.getArticles);
 
-router.route('/:articleId').get(validate(articleValidation.getArticle), articleController.getArticle);
+router
+  .route('/:articleId')
+  .get(validate(articleValidation.getArticle), articleController.getArticle)
+  .delete(validate(articleValidation.deleteArticle), articleController.deleteArticle)
+  .put(validate(articleValidation.updateArticle), articleController.updateArticle);
 export default router;

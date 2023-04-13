@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { NewArticle } from './article.interface';
-import { objectId } from '../validate/custom.validation';
+// import { objectId } from '../validate/custom.validation';
 
 const createArticleBody: Record<keyof Omit<NewArticle, 'articleId' | 'creator'>, any> = {
   title: Joi.string().required(),
@@ -40,6 +40,14 @@ export const getArticle = {
 
 export const deleteArticle = {
   params: Joi.object().keys({
-    articleId: Joi.string().required().custom(objectId),
+    // articleId: Joi.string().required().custom(objectId),
+    articleId: Joi.string().required(),
   }),
+};
+
+export const updateArticle = {
+  params: Joi.object().keys({
+    articleId: Joi.string().required(),
+  }),
+  body: Joi.object().keys(createArticleBody),
 };

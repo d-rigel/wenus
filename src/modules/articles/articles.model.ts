@@ -41,6 +41,12 @@ const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>(
 articleSchema.plugin(toJSON);
 articleSchema.plugin(paginate);
 
+// Check if article already exists
+articleSchema.static('isArticleExist', async function (title: string): Promise<boolean> {
+  const articled = await this.findOne({ title });
+  return !!articled;
+});
+
 // /**
 //  * Generate articleId
 //  * @returns {Promise<string>}

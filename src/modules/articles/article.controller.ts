@@ -50,3 +50,27 @@ export const getArticle = catchAsync(async (req: Request, res: Response) => {
   }
   res.send(article);
 });
+
+export const deleteArticle = catchAsync(async (req: Request, res: Response) => {
+  await articleService.deleteArticle(req.params['articleId'] as string | mongoose.Types.ObjectId);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+export const updateArticle = catchAsync(async (req: Request, res: Response) => {
+  if (req.body.title) {
+    req.body.title = req.body.title;
+  }
+
+  if (req.body.article) {
+    req.body.article = req.body.article;
+  }
+  if (req.body.image) {
+    req.body.image = req.body.image;
+  }
+
+  const article = await articleService.updateArticleById(
+    req.params['articleId'] as string | mongoose.Types.ObjectId,
+    req.body
+  );
+  res.send(article);
+});
