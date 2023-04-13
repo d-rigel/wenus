@@ -1,4 +1,4 @@
-# INEC CROMS SERVER
+# WENUS SERVER
 
 ## Commands
 
