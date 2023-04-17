@@ -6,6 +6,7 @@ const createArticleBody: Record<keyof Omit<NewArticle, 'articleId' | 'creator'>,
   title: Joi.string().required(),
   article: Joi.string().required(),
   image: Joi.string().optional(),
+
   comments: Joi.string().optional(),
   likes: Joi.string().optional(),
   createdTime: Joi.string().optional(),
