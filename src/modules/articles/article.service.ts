@@ -7,6 +7,7 @@ import Article from './articles.model';
 import { IOptions, QueryResult } from '../paginate/paginate';
 import { IArticleDoc, NewArticle } from './article.interface';
 import { ApiError } from '../errors';
+import cloudinary from 'cloudinary';
 
 /**
  * Create an article
@@ -53,9 +54,14 @@ export const deleteArticle = async (
   id: mongoose.Types.ObjectId | string
 ): Promise<{ deletedCount: number; acknowledged: boolean }> => {
   if (mongoose.Types.ObjectId.isValid(id)) {
+    const oneArticle: any = await Article.findById({ _id: id });
+    await cloudinary.v2.uploader.destroy(oneArticle?.image?.public_id);
+
     const result = await Article.deleteOne({ _id: id });
     return result;
   }
+  const oneArticle: any = await Article.findById({ articleId: id });
+  await cloudinary.v2.uploader.destroy(oneArticle?.image?.public_id);
   const result = await Article.deleteOne({ articleId: id });
   return result;
 };

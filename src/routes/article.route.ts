@@ -14,6 +14,6 @@ router
 router
   .route('/:articleId')
   .get(validate(articleValidation.getArticle), articleController.getArticle)
-  .delete(validate(articleValidation.deleteArticle), articleController.deleteArticle)
+  .delete(singleUpload, validate(articleValidation.deleteArticle), articleController.deleteArticle)
   .put(validate(articleValidation.updateArticle), articleController.updateArticle);
 export default router;
