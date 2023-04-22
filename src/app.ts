@@ -7,15 +7,23 @@ import compression from 'compression';
 import cors from 'cors';
 import passport from 'passport';
 import httpStatus from 'http-status';
-
+import cloudinary from 'cloudinary';
 import config from './config/config';
 import { morgan } from './modules/logger';
 // import { jwtStrategy } from './modules/auth';
 // import { authLimiter } from './modules/utils';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
 // import routes from './routes/v1';
+// import { upload } from './modules/media/multer';
 import routes from './routes/index';
+
 const app: Express = express();
+
+cloudinary.v2.config({
+  cloud_name: 'dmz3lqu6k',
+  api_key: '612155235447954',
+  api_secret: '29AVs3yBhLRB4vfmFYmxxvnb1co',
+});
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
@@ -53,6 +61,7 @@ app.use(passport.initialize());
 
 // v1 api routes
 app.use('/v1', routes);
+// app.use('/v1/images', express.static('src/modules/images'));
 
 // send back a 404 error for any unknown api request
 app.use((_req: Request, _res: Response, next: NextFunction) => {

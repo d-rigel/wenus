@@ -17,8 +17,18 @@ const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>(
       type: String,
     },
     image: {
-      type: String,
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
+    // image: {
+    //   type: String,
+    // },
     likes: {
       type: Number,
       default: 0,

@@ -6,12 +6,27 @@ import pick from '../utils/pick';
 import { IOptions } from '../paginate/paginate';
 import { ApiError } from '../errors';
 import mongoose from 'mongoose';
+import getDataUri from '../media/dataUri';
+import cloudinary from 'cloudinary';
+// import multer from 'multer';
+// ..................
+// import Article from './articles.model';
+// import { IArticleDoc, NewArticle } from './article.interface';
 
 export const createArticle = catchAsync(async (req: Request, res: Response) => {
+  const file = req.file;
+  const fileUri: any = getDataUri(file);
+  const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+
   req.body.title = req.body.title;
   req.body.article = req.body.article;
   // req.body.creator = req.user._id;
-  req.body.image = req.body.image;
+  // req.body.image = req.body.image;
+  req.body.image = {
+    public_id: myCloud.public_id,
+    url: myCloud.secure_url,
+  };
+
   req.body.comments = req.body.comments;
   req.body.likes = req.body.likes;
 
