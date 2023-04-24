@@ -72,6 +72,10 @@ export const deleteArticle = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const updateArticle = catchAsync(async (req: Request, res: Response) => {
+  const file = req.file;
+  const fileUri: any = getDataUri(file);
+  const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+
   if (req.body.title) {
     req.body.title = req.body.title;
   }
@@ -80,7 +84,11 @@ export const updateArticle = catchAsync(async (req: Request, res: Response) => {
     req.body.article = req.body.article;
   }
   if (req.body.image) {
-    req.body.image = req.body.image;
+    // req.body.image = req.body.image;
+    req.body.image = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
   }
 
   const article = await articleService.updateArticleById(

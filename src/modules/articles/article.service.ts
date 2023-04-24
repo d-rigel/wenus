@@ -80,9 +80,13 @@ export const updateArticleById = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'Article already exist');
   }
   if (mongoose.Types.ObjectId.isValid(id)) {
+    const oneArticle: any = await Article.findById({ _id: id });
+    await cloudinary.v2.uploader.destroy(oneArticle?.image?.public_id);
     const update = await Article.findOneAndUpdate({ _id: id }, articleBody, { new: true });
     return update;
   }
+  const oneArticle: any = await Article.findById({ _id: id });
+  await cloudinary.v2.uploader.destroy(oneArticle?.image?.public_id);
   const update = Article.findOneAndUpdate({ articleId: id }, articleBody, { new: true });
   return update;
 };
