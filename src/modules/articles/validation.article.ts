@@ -8,7 +8,17 @@ const createArticleBody: Record<keyof Omit<NewArticle, 'articleId' | 'creator'>,
   image: Joi.string().optional(),
 
   comments: Joi.string().optional(),
-  likes: Joi.string().optional(),
+  likes: Joi.number().optional(),
+  createdTime: Joi.string().optional(),
+};
+
+const likeArticleBody: Record<keyof Omit<NewArticle, 'articleId' | 'creator'>, any> = {
+  title: Joi.string().optional(),
+  article: Joi.string().optional(),
+  image: Joi.string().optional(),
+
+  comments: Joi.string().optional(),
+  likes: Joi.number().optional(),
   createdTime: Joi.string().optional(),
 };
 
@@ -51,4 +61,11 @@ export const updateArticle = {
     articleId: Joi.string().required(),
   }),
   body: Joi.object().keys(createArticleBody),
+};
+
+export const likeArticle = {
+  params: Joi.object().keys({
+    articleId: Joi.string().required(),
+  }),
+  body: Joi.object().keys(likeArticleBody),
 };

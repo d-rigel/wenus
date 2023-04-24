@@ -13,6 +13,7 @@ import { morgan } from './modules/logger';
 // import { jwtStrategy } from './modules/auth';
 // import { authLimiter } from './modules/utils';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
+
 // import routes from './routes/v1';
 // import { upload } from './modules/media/multer';
 import routes from './routes/index';
@@ -20,9 +21,9 @@ import routes from './routes/index';
 const app: Express = express();
 
 cloudinary.v2.config({
-  cloud_name: 'dmz3lqu6k',
-  api_key: '612155235447954',
-  api_secret: '29AVs3yBhLRB4vfmFYmxxvnb1co',
+  cloud_name: config.cloudinary.cloud_name,
+  api_key: config.cloudinary.api_key,
+  api_secret: config.cloudinary.api_secret,
 });
 
 if (config.env !== 'test') {

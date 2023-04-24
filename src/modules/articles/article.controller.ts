@@ -10,7 +10,7 @@ import getDataUri from '../media/dataUri';
 import cloudinary from 'cloudinary';
 // import multer from 'multer';
 // ..................
-// import Article from './articles.model';
+import Article from './articles.model';
 // import { IArticleDoc, NewArticle } from './article.interface';
 
 export const createArticle = catchAsync(async (req: Request, res: Response) => {
@@ -96,4 +96,24 @@ export const updateArticle = catchAsync(async (req: Request, res: Response) => {
     req.body
   );
   res.send(article);
+});
+
+// export const likeArticle = catchAsync(async (req: Request, res: Response) => {
+//   if (req.body.likes) {
+//     req.body.likes = 0 + 1;
+//   }
+
+//   const article = await articleService.likeArticle(req.params['articleId'] as string | mongoose.Types.ObjectId, req.body);
+//   res.send(article);
+// });
+
+export const likeArticle = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params['articleId'] as string | mongoose.Types.ObjectId;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, `No resouce with id: ${id}`);
+  }
+  const oneArticle: any = await Article.findById({ _id: id });
+
+  const update = await Article.findByIdAndUpdate({ _id: id }, { likes: oneArticle?.likes + 1 }, { new: true });
+  res.send(update);
 });

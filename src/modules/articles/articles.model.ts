@@ -26,9 +26,7 @@ const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>(
         required: true,
       },
     },
-    // image: {
-    //   type: String,
-    // },
+
     likes: {
       type: Number,
       default: 0,
