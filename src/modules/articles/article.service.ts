@@ -69,7 +69,7 @@ export const deleteArticle = async (
 /**
  * Update article by id
  * @param {string | mongoose.ObjectId} id - Article id
- * @param {NewTraining} articleBody
+ * @param {NewArticle} articleBody
  * @returns {Promise<IArticleDoc>}
  */
 export const updateArticleById = async (

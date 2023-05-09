@@ -13,8 +13,12 @@ const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>(
       type: String,
       required: true,
     },
+    // creator: {
+    //   type: String,
+    // },
     creator: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
     image: {
       public_id: {
@@ -27,12 +31,33 @@ const articleSchema = new mongoose.Schema<IArticleDoc, IArticleModel>(
       },
     },
 
-    likes: {
-      type: Number,
-      default: 0,
-    },
-    comments: [String],
+    // likes: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+    // comments: {
+    //   type: [String],
+    //   default: [],
+    // },
+    // comments: [
+    //   {
+    //     type: String,
+    //   },
+    // ],
 
+    comments: [
+      {
+        comment: {
+          type: mongoose.Types.ObjectId,
+          ref: 'Comment',
+        },
+        creator: {
+          type: mongoose.Types.ObjectId,
+          ref: 'User',
+        },
+      },
+    ],
     articleId: {
       type: String,
     },

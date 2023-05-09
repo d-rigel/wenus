@@ -16,5 +16,6 @@ router
   .get(validate(articleValidation.getArticle), articleController.getArticle)
   .delete(singleUpload, validate(articleValidation.deleteArticle), articleController.deleteArticle)
   .put(singleUpload, validate(articleValidation.updateArticle), articleController.updateArticle)
-  .patch(validate(articleValidation.likeArticle), articleController.likeArticle);
+  .patch(validate(articleValidation.likeArticle), articleController.likeArticle)
+  // .post(validate(articleValidation.createArticleComments), articleController.createArticleComments);
 export default router;

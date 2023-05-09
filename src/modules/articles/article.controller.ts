@@ -20,8 +20,7 @@ export const createArticle = catchAsync(async (req: Request, res: Response) => {
 
   req.body.title = req.body.title;
   req.body.article = req.body.article;
-  // req.body.creator = req.user._id;
-  // req.body.image = req.body.image;
+
   req.body.image = {
     public_id: myCloud.public_id,
     url: myCloud.secure_url,
@@ -97,15 +96,6 @@ export const updateArticle = catchAsync(async (req: Request, res: Response) => {
   );
   res.send(article);
 });
-
-// export const likeArticle = catchAsync(async (req: Request, res: Response) => {
-//   if (req.body.likes) {
-//     req.body.likes = 0 + 1;
-//   }
-
-//   const article = await articleService.likeArticle(req.params['articleId'] as string | mongoose.Types.ObjectId, req.body);
-//   res.send(article);
-// });
 
 export const likeArticle = catchAsync(async (req: Request, res: Response) => {
   const id = req.params['articleId'] as string | mongoose.Types.ObjectId;
