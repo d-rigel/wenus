@@ -10,16 +10,9 @@ const commentSchema = new mongoose.Schema<ICommentDoc, ICommentModel>(
       type: String,
       required: true,
     },
-
-    // likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
-    // creator: { type: mongoose.Types.ObjectId, ref: 'User' },
     creator: { type: mongoose.Types.ObjectId, ref: 'User' },
-    // commentId: mongoose.Types.ObjectId,
     articleIds: { type: mongoose.Types.ObjectId, ref: 'Article' },
     articleUserId: mongoose.Types.ObjectId,
-    // title: String,
-    // article: String,
-    // image: String,
   },
   {
     timestamps: true,

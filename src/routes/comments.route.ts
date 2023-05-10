@@ -5,14 +5,16 @@ import { validate } from '../modules/validate';
 
 const router: Router = express.Router();
 
-router.route('/').post(validate(commentValidation.createComment), commentController.createComment);
-//   .get(validate(articleValidation.getArticles), articleController.getArticles);
+router
+  .route('/')
+  .post(validate(commentValidation.createComment), commentController.createComment)
+  .get(validate(commentValidation.getComments), commentController.getComments);
 
-// router
-//   .route('/:articleId')
-//   .get(validate(articleValidation.getArticle), articleController.getArticle)
-//   .delete(singleUpload, validate(articleValidation.deleteArticle), articleController.deleteArticle)
-//   .put(singleUpload, validate(articleValidation.updateArticle), articleController.updateArticle)
-//   .patch(validate(articleValidation.likeArticle), articleController.likeArticle)
+router
+  .route('/:commentId')
+  //   .get(validate(articleValidation.getArticle), articleController.getArticle)
+  //   .delete(singleUpload, validate(articleValidation.deleteArticle), articleController.deleteArticle)
+  //   .put(singleUpload, validate(articleValidation.updateArticle), articleController.updateArticle)
+  .patch(validate(commentValidation.updateComment), commentController.updateComment);
 // .post(validate(articleValidation.createArticleComments), articleController.createArticleComments);
 export default router;

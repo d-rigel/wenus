@@ -5,10 +5,10 @@ import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import Comment from './comments.model';
 import Article from '../articles/articles.model';
-// import { IOptions, QueryResult } from '../paginate/paginate';
+import { IOptions, QueryResult } from '../paginate/paginate';
 import * as articleService from '../articles/article.service';
 
-import { ICommentDoc, IComment } from './comments.interface';
+import { ICommentDoc, IComment, NewComment } from './comments.interface';
 import { ApiError } from '../errors';
 import { IArticleDoc, IArticle } from '../articles/article.interface';
 // NewArticle,
@@ -45,12 +45,6 @@ export const createComment = async (commentBody: Partial<IComment>, creator: str
   }
   // commentBody.commentId = article?._id;
   commentBody.articleIds = article?._id;
-  // commentBody.articleUserId = article?.creator as string;
-  // commentBody.likes = article?.likes;
-  // commentBody.title = article.title;
-  // commentBody.article = article.article;
-  // commentBody?.image.public_url = article.image.public_url;
-  // commentBody?.image.url = article.image.url;
 
   const newArticle = await Comment.create({ ...commentBody });
   // const comment: any = article.comments || [];
@@ -58,15 +52,38 @@ export const createComment = async (commentBody: Partial<IComment>, creator: str
   // comment.push(creator);
   comment.push({
     creator: new mongoose.Types.ObjectId(creator),
-    comment: new mongoose.Types.ObjectId(article?._id),
+    article: new mongoose.Types.ObjectId(article._id),
   });
-  console.log('pushed comment', comment);
-  // article.comments = article.comments.push(creator?._id);
-  // await article.save();
 
-  // await articleService.updateArticleById(article._id, comment);
   await updateArticles(article._id, {
     comments: comment,
   });
   return newArticle;
+};
+
+export const queryComments = async (filter: Record<string, any>, options: IOptions): Promise<QueryResult> => {
+  const comments = await Comment.paginate(filter, options);
+  return comments;
+};
+
+/**
+ * Update comment by id
+ * @param {string | mongoose.ObjectId} id - Comment id
+ * @param {NewComment} commentBody
+ * @returns {Promise<ICommentDoc>}
+ */
+export const updateComment = async (
+  id: string | mongoose.Types.ObjectId,
+  commentBody: NewComment
+): Promise<ICommentDoc | null> => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Comment does not exist');
+  }
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const update = await Comment.findOneAndUpdate({ _id: id }, commentBody, { new: true });
+    return update;
+  }
+
+  const update = Comment.findOneAndUpdate({ articleIds: id }, commentBody, { new: true });
+  return update;
 };
