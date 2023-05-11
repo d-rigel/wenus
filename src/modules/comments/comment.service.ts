@@ -43,17 +43,19 @@ export const createComment = async (commentBody: Partial<IComment>, creator: str
   if (!article) {
     throw new ApiError(httpStatus.NOT_FOUND, 'article not found');
   }
-  // commentBody.commentId = article?._id;
-  commentBody.articleIds = article?._id;
 
-  const newArticle = await Comment.create({ ...commentBody });
-  // const comment: any = article.comments || [];
+  commentBody.articleIds = article?._id;
+  // commentBody.creator = new mongoose.Types.ObjectId(creator);
+
+  const newArticle: any = (await Comment.create({ ...commentBody })).populate('creator');
+
   const comment = article.comments || [];
   // comment.push(creator);
   comment.push({
     creator: new mongoose.Types.ObjectId(creator),
     article: new mongoose.Types.ObjectId(article._id),
   });
+  console.log('comment', comment);
 
   await updateArticles(article._id, {
     comments: comment,
@@ -86,4 +88,52 @@ export const updateComment = async (
 
   const update = Comment.findOneAndUpdate({ articleIds: id }, commentBody, { new: true });
   return update;
+};
+
+/**
+ * Delete article by id
+ * @param {mongoose.Types.ObjectId} id
+ * @returns {Promise<IArticleDoc>}
+ */
+export const deleteComment = async (
+  id: mongoose.Types.ObjectId | any,
+  creator: mongoose.Types.ObjectId | any
+): Promise<{ deletedCount: number; acknowledged: boolean }> => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Comment does not exist');
+  }
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const comment = await Comment.findById({ _id: id });
+    console.log('delete comment', comment);
+    const commentUserId = comment?.creator;
+
+    if (commentUserId === creator) {
+      // delete comment by id
+      await Comment.findByIdAndDelete(id);
+      // delete Comment from Post
+      await Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+    } else {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
+    }
+    // const result = await Comment.deleteOne({ _id: id });
+    const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+    return result;
+    // return deleteCommentFromPost;
+  }
+
+  // const comment = await Comment.findById({ articleId: id });
+  const comment = await Comment.findById({ articleIds: id });
+  const commentUserId = comment?.creator;
+  if (commentUserId === creator) {
+    // delete comment by id
+    await Comment.findByIdAndDelete(id);
+    await Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+  } else {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
+  }
+
+  // const result = await Comment.deleteOne({ articleId: id });
+  const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+  return result;
+  // return result;
 };

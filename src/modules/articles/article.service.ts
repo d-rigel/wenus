@@ -17,7 +17,7 @@ import cloudinary from 'cloudinary';
 
 export const createArticle = async (articleBody: NewArticle): Promise<IArticleDoc> => {
   articleBody.articleId = await Article.generateArticleId();
-  return await Article.create({ ...articleBody });
+  return (await Article.create({ ...articleBody })).populate('creator');
 };
 
 /**

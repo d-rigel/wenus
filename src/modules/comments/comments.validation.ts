@@ -33,12 +33,11 @@ export const getComments = {
 //   }),
 // };
 
-// export const deleteArticle = {
-//   params: Joi.object().keys({
-//     // articleId: Joi.string().required().custom(objectId),
-//     articleId: Joi.string().required(),
-//   }),
-// };
+export const deleteComment = {
+  params: Joi.object().keys({
+    commentId: Joi.string().required(),
+  }),
+};
 
 export const updateComment = {
   params: Joi.object().keys({

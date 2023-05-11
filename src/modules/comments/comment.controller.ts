@@ -38,8 +38,9 @@ export const getComments = catchAsync(async (req: Request, res: Response) => {
     };
   }
 
-  const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy']);
-  // const result = await electionService.queryElections(match, options);
+  const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy', 'creator']);
+
+  // const result = await commentService.queryComments(match, { ...options, populate: 'creator' });
   const result = await commentService.queryComments(match, options);
   res.send(result);
 });
@@ -57,4 +58,19 @@ export const updateComment = catchAsync(async (req: Request, res: Response) => {
   }
   const comment = await commentService.updateComment(req.params['commentId'] as string | mongoose.Types.ObjectId, req.body);
   res.send(comment);
+});
+
+export const deleteComment = catchAsync(async (req: Request, res: Response) => {
+  const creator: any = {
+    _id: '64462290c7cec914e40b9a2e',
+    firstName: 'John',
+    lastName: 'Graige',
+    email: 'nname@users.com',
+    createdTime: '2023-05-05T12:53:06.197Z',
+    createdAt: '2023-05-05T13:01:42.514Z',
+    updatedAt: '2023-05-05T13:01:42.514Z',
+    __v: 0,
+  };
+  await commentService.deleteComment(req.params['commentId'] as string | mongoose.Types.ObjectId, creator);
+  res.status(httpStatus.NO_CONTENT).send();
 });
