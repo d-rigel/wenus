@@ -5,6 +5,8 @@ import { QueryResult } from '../paginate/paginate';
 export interface IUser {
   firstName: string;
   lastName: string;
+  otherName: string;
+  stack: string;
   email: string;
   password: string;
   hasDefaultPassword: boolean;
@@ -22,7 +24,6 @@ export interface IUserDoc extends IUser, Document {
 
 export interface IUserModel extends Model<IUserDoc> {
   isEmailTaken(email: string, excludeUserId?: mongoose.Types.ObjectId): Promise<boolean>;
-  //   isMobileNumberTaken(mobileNumber: string, excludeUserId?: mongoose.Types.ObjectId): Promise<boolean>;
   paginate(filter: Record<string, any>, options: Record<string, any>): Promise<QueryResult>;
 }
 
@@ -43,7 +44,7 @@ export type NewCreatedUser = Omit<
   'isEmailVerified' | 'hasDefaultPassword' | 'avatar' | 'failedLoginAttempts' | 'lockedOutTime'
 >;
 
-//   export interface IUserWithTokens {
-//     user: IUserDoc;
-//     tokens: AccessAndRefreshTokens;
-//   }
+export interface IUserWithTokens {
+  user: IUserDoc;
+  tokens: AccessAndRefreshTokens;
+}
