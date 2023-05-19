@@ -169,7 +169,7 @@ export const holdSystemToken = async (role?: string): Promise<string | void> => 
       password: faker.internet.password(),
       role: roles.includes(role?.toLowerCase() as string) ? role : 'superAdmin',
       isEmailVerified: false,
-    //   mobileNumber: faker.phone.phoneNumber(),
+      //   mobileNumber: faker.phone.phoneNumber(),
       userName: faker.name.findName(),
       hasDefaultPassword: false,
     };

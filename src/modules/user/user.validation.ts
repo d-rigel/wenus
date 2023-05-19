@@ -59,13 +59,9 @@ export const deleteUser = {
 export const inviteUser = {
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    state: Joi.string().required(),
-    position: Joi.string().required(),
-    election: Joi.string().required(),
-    opening: Joi.string().required(),
+    stack: Joi.string().required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
-    institution: Joi.string().required(),
   }),
 };
 

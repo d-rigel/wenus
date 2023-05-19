@@ -3,6 +3,7 @@ import validator from 'validator';
 import toJSON from '../toJSON/toJSON';
 import paginate from '../paginate/paginate';
 import { IInviteDoc, IInviteModel } from './user.invite.interfaces';
+import { roles } from '../../config/roles';
 
 const inviteSchema = new mongoose.Schema<IInviteDoc, IInviteModel>(
   {
@@ -41,7 +42,7 @@ const inviteSchema = new mongoose.Schema<IInviteDoc, IInviteModel>(
     },
     role: {
       type: String,
-      enum: ['admin', 'user'],
+      enum: roles,
       default: 'user',
     },
     isUsed: {
