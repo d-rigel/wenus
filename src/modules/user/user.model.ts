@@ -39,8 +39,18 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       trim: true,
     },
 
-    avatar: {
-      type: String,
+    // avatar: {
+    //   type: String,
+    // },
+    image: {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
     password: {
       type: String,

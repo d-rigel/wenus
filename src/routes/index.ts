@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import articleRoute from './article.route';
 import commentRoute from './comments.route';
+import authRoute from './auth.route';
 
 const router = express.Router();
 
@@ -17,6 +18,10 @@ const defaultIRoute: IRoute[] = [
   {
     path: '/comment',
     route: commentRoute,
+  },
+  {
+    path: '/auth',
+    route: authRoute,
   },
 ];
 

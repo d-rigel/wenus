@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
-// import { Message } from './email.interfaces';
+import { Message } from './email.interfaces';
 // import Mailgun from 'mailgun.js';
 // import FormData from 'form-data';
-import { MailgunMessageData, MessagesSendResult } from 'mailgun.js/interfaces/Messages';
+// import { MailgunMessageData, MessagesSendResult } from 'mailgun.js/interfaces/Messages';
 import request from 'request';
 import config from '../../config/config';
 import logger from '../logger/logger';
@@ -52,7 +52,7 @@ export const sendEmail = async (
   html: string,
   attachments?: { path: string; filename: string }[]
 ): Promise<void> => {
-  const msg: MailgunMessageData = {
+  const msg: Message | any = {
     from: config.email.from,
     to,
     subject,
@@ -132,12 +132,12 @@ export const sendVerificationEmail = async (to: string, token: string, code: str
   If you have any questions, send us an email inec-support@mail.com.
   
   We’re glad you’re here!
-  The INEC team`;
+  The WENUS team`;
   const html = `<div style="margin:30px; padding:30px; border:1px solid black; border-radius: 20px 10px;"><h4><strong>Hi ${name},</strong></h4>
   <p>Your verification code is <b>${code}</b></p>
   <p>Enter this code to complete your account registeration.</p>
   <p>You can also verify email at: <a target="_blank" href="${verificationEmailUrl}">verify email</a></p>
-  <p> If you have any questions, send us an email inec-support@mail.com</p>
+  <p> If you have any questions, send us an email rigel4g@gmail.com</p>
   <p>We’re glad you’re here!</p>
   </div>`;
   await sendEmail(to, subject, text, html);

@@ -7,6 +7,7 @@ export interface IInvite {
   email: string;
   invitationCode: string;
   stack: string;
+  image?: string;
   role?: string;
   isUsed?: boolean;
   state: string;

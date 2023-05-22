@@ -8,6 +8,7 @@ const createUserBody: Record<keyof NewCreatedUser, any> = {
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   otherName: Joi.string().optional(),
+  image: Joi.string().optional(),
   stack: Joi.string().required(),
   invitationCode: Joi.string().optional(),
   role: Joi.string().required(),

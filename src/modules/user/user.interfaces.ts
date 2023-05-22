@@ -12,7 +12,8 @@ export interface IUser {
   hasDefaultPassword: boolean;
   role: string;
   isEmailVerified: boolean;
-  avatar: string;
+  // avatar?: string;
+  image?: string;
   failedLoginAttempts: number;
   lockedOutTime: Date | null;
   invitationCode: string | undefined;
@@ -34,15 +35,12 @@ export type NewRegisteredUser = Omit<
   | 'role'
   // | 'isEmailVerified'
   | 'hasDefaultPassword'
-  | 'avatar'
+  // | 'image'
   | 'failedLoginAttempts'
   | 'lockedOutTime'
 >;
 
-export type NewCreatedUser = Omit<
-  IUser,
-  'isEmailVerified' | 'hasDefaultPassword' | 'avatar' | 'failedLoginAttempts' | 'lockedOutTime'
->;
+export type NewCreatedUser = Omit<IUser, 'isEmailVerified' | 'hasDefaultPassword' | 'failedLoginAttempts' | 'lockedOutTime'>;
 
 export interface IUserWithTokens {
   user: IUserDoc;

@@ -7,7 +7,8 @@ import { IOptions, QueryResult } from '../paginate/paginate';
 import { NewCreatedUser, UpdateUserBody, IUserDoc, NewRegisteredUser } from './user.interfaces';
 import Invite from './user.invite.model';
 import { emitEvent } from '../utils/emit-event';
-import { IInvite, IInviteDoc, IInviteStatus, UpdateInviteBody } from './user.invite.interfaces';
+// import { IInvite, IInviteDoc, IInviteStatus, UpdateInviteBody } from './user.invite.interfaces';
+import { IInviteDoc, UpdateInviteBody } from './user.invite.interfaces';
 // import generateInviteCode from '../utils/generate.invite.code';
 import { tokenService } from '../token';
 
@@ -69,6 +70,7 @@ export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDo
   if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
+
   if (userBody.invitationCode) {
     const invite = await getInvite({ code: userBody.invitationCode });
     if (invite && invite.isUsed) {
