@@ -8,5 +8,6 @@ import { authValidation, authController } from '../modules/auth';
 const router: Router = express.Router();
 
 router.post('/register', singleUpload, validate(authValidation.register), authController.register);
+router.post('/login', validate(authValidation.login), authController.login);
 
 export default router;

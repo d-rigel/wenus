@@ -2,10 +2,10 @@ import httpStatus from 'http-status';
 import { Request, Response } from 'express';
 // import mongoose from 'mongoose';
 import catchAsync from '../utils/catchAsync';
-// import { tokenService } from '../token';
+import { tokenService } from '../token';
 import { userService } from '../user';
 
-// import * as authService from './auth.service';
+import * as authService from './auth.service';
 // import { emailService } from '../email';
 import { emitEvent } from '../utils/emit-event';
 import sendResponse from '../utils/send-response';
@@ -46,4 +46,12 @@ export const register = catchAsync(async (req: Request, res: Response) => {
     },
     'Confirmation code has been sent successfully'
   );
+});
+
+export const login = catchAsync(async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const user = await authService.loginUserWithEmailAndPassword(email, password);
+  const tokens = await tokenService.generateAuthTokens(user);
+  emitEvent('user_login', { ...user.toJSON(), ipAddress: req.socket.remoteAddress, device: req.headers['user-agent'] });
+  res.send({ user, tokens });
 });

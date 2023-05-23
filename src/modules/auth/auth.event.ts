@@ -5,7 +5,7 @@ import { subscribeToEvent } from '../utils/emit-event';
 import { IUserDoc } from '../user/user.interfaces';
 import { emailService } from '../email';
 import { tokenService } from '../token';
-// import { ILogin } from './auth.interfaces';
+import { ILogin } from './auth.interfaces';
 // import { userService } from '../user';
 
 const eventLog: Record<string, Function> = {
@@ -20,12 +20,12 @@ const eventLog: Record<string, Function> = {
       );
     }
   },
-  //   user_login: async (user: ILogin) => {
-  //     return emailService.sendLoginEmail(user.email, `${user.firstName || ''} ${user.lastName || ''}`, {
-  //       ipAddress: user.ipAddress,
-  //       device: user.device,
-  //     });
-  //   },
+  user_login: async (user: ILogin) => {
+    return emailService.sendLoginEmail(user.email, `${user.firstName || ''} ${user.lastName || ''}`, {
+      ipAddress: user.ipAddress,
+      device: user.device,
+    });
+  },
 };
 
 // eslint-disable-next-line guard-for-in
