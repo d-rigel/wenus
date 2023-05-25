@@ -6,11 +6,11 @@ import { tokenService } from '../token';
 import { userService } from '../user';
 
 import * as authService from './auth.service';
-// import { emailService } from '../email';
+import { emailService } from '../email';
 import { emitEvent } from '../utils/emit-event';
 import sendResponse from '../utils/send-response';
 // import { officerService } from '../officer';
-// import { ApiError } from '../errors';
+import { ApiError } from '../errors';
 import getDataUri from '../media/dataUri';
 import cloudinary from 'cloudinary';
 
@@ -52,6 +52,37 @@ export const login = catchAsync(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await authService.loginUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
-  emitEvent('user_login', { ...user.toJSON(), ipAddress: req.socket.remoteAddress, device: req.headers['user-agent'] });
+  // emitEvent('user_login', { ...user.toJSON(), ipAddress: req.socket.remoteAddress, device: req.headers['user-agent'] });
   res.send({ user, tokens });
+});
+
+export const logout = catchAsync(async (req: Request, res: Response) => {
+  await authService.logout(req.body.refreshToken);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+export const refreshTokens = catchAsync(async (req: Request, res: Response) => {
+  const userWithTokens = await authService.refreshAuth(req.body.refreshToken);
+  res.send({ ...userWithTokens });
+});
+
+export const forgotPassword = catchAsync(async (req: Request, res: Response) => {
+  const user = await userService.getUserByEmail(req.body.email);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'user email not found');
+  }
+  const resetPasswordToken = await tokenService.generateResetPasswordToken(user);
+  await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+export const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  await authService.resetPassword(req.query['token'], req.body.password);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+export const changePassword = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id;
+  await authService.changePassword(req.body.newPassword, req.body.currentPassword, userId);
+  res.status(httpStatus.NO_CONTENT).send();
 });
