@@ -10,8 +10,8 @@ import httpStatus from 'http-status';
 import cloudinary from 'cloudinary';
 import config from './config/config';
 import { morgan } from './modules/logger';
-// import { jwtStrategy } from './modules/auth';
-// import { authLimiter } from './modules/utils';
+import { jwtStrategy } from './modules/auth';
+import { authLimiter } from './modules/utils';
 import { ApiError, errorConverter, errorHandler } from './modules/errors';
 
 // import routes from './routes/v1';
@@ -53,16 +53,15 @@ app.use(compression());
 
 // jwt authentication
 app.use(passport.initialize());
-// passport.use('jwt', jwtStrategy);
+passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
-// if (config.env === 'production') {
-//   app.use('/v1/auth', authLimiter);
-// }
+if (config.env === 'production') {
+  app.use('/v1/auth', authLimiter);
+}
 
 // v1 api routes
 app.use('/v1', routes);
-// app.use('/v1/images', express.static('src/modules/images'));
 
 // send back a 404 error for any unknown api request
 app.use((_req: Request, _res: Response, next: NextFunction) => {

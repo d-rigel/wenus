@@ -13,7 +13,7 @@ export interface IUser {
   role: string;
   isEmailVerified: boolean;
   // avatar?: string;
-  image?: string;
+  image: string;
   failedLoginAttempts: number;
   lockedOutTime: Date | null;
   invitationCode: string | undefined;

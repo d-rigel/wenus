@@ -15,6 +15,7 @@ const jwtStrategy = new JwtStrategy(
         throw new Error('Invalid token type');
       }
       const user = await User.findById(payload.sub);
+
       if (!user) {
         return done(null, false);
       }

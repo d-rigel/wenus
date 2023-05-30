@@ -103,6 +103,7 @@ export const resetPassword = async (resetPasswordToken: any, newPassword: string
 export const changePassword = async (newPassword: string, currentPassword: string, userId: string): Promise<void> => {
   try {
     const user = await getUserById(new mongoose.Types.ObjectId(userId));
+    console.log('change pw user', user);
     if (!user || !(await user.isPasswordMatch(currentPassword))) {
       throw new ApiError(httpStatus.UNAUTHORIZED, 'Current password is wrong');
     }
