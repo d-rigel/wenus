@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import catchAsync from '../utils/catchAsync';
 import { tokenService } from '../token';
 import { userService } from '../user';
-
+import mongoose from 'mongoose';
 import * as authService from './auth.service';
 import { emailService } from '../email';
 import { emitEvent } from '../utils/emit-event';
@@ -85,4 +85,41 @@ export const changePassword = catchAsync(async (req: Request, res: Response) => 
 
   await authService.changePassword(req.body.newPassword, req.body.currentPassword, userId);
   res.status(httpStatus.NO_CONTENT).send();
+});
+
+export const resendVerificationEmail = catchAsync(async (req: Request, res: Response) => {
+  const user = await userService.getUserById(new mongoose.Types.ObjectId(req.body.userId));
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+  }
+  const { verifyEmailToken, confirmationCode } = await tokenService.saveConfirmationToken(user.id);
+  await emailService.sendVerificationEmail(
+    user.email,
+    `${verifyEmailToken}`,
+    confirmationCode,
+    `${user.firstName || ''} ${user.lastName || ''}`
+  );
+  return sendResponse(
+    res,
+    httpStatus.CREATED,
+    {
+      user,
+    },
+    'Confirmation code has been re-sent successfully'
+  );
+});
+
+export const verifyEmail = catchAsync(async (req: Request, res: Response) => {
+  const verify = await authService.verifyEmail(req.query['token'], req.query['userId'], req.body.code);
+  const tokens = await tokenService.generateAuthTokens(verify);
+
+  return sendResponse(
+    res,
+    httpStatus.OK,
+    {
+      user: verify,
+      tokens,
+    },
+    'verification_successful'
+  );
 });

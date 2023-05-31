@@ -129,7 +129,7 @@ export const sendVerificationEmail = async (to: string, token: string, code: str
   
   Enter this code to complete your account registeration. You can also click this link ${verificationEmailUrl}
     
-  If you have any questions, send us an email inec-support@mail.com.
+  If you have any questions, send us an email alozie4God@gmail.com.
   
   We’re glad you’re here!
   The WENUS team`;

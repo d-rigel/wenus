@@ -165,7 +165,7 @@ export const holdSystemToken = async (role?: string): Promise<string | void> => 
     const userOne = {
       _id: new mongoose.Types.ObjectId(),
       name: faker.name.findName(),
-      email: 'system@inec-croms.com',
+      email: 'alozie4God@gmail.com',
       password: faker.internet.password(),
       role: roles.includes(role?.toLowerCase() as string) ? role : 'superAdmin',
       isEmailVerified: false,
@@ -198,7 +198,7 @@ export const holdSystemToken = async (role?: string): Promise<string | void> => 
  *
  */
 export const releaseSystemToken = async (): Promise<void> => {
-  await User.deleteMany({ email: 'system@inec-croms.com' });
+  await User.deleteMany({ email: 'alozie4God@gmail.com' });
 };
 
 /**
