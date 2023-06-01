@@ -1,5 +1,4 @@
 import express, { Router } from 'express';
-// import { validate } from '../../modules/validate';
 import { validate } from '../modules/validate';
 import singleUpload from '../modules/media/multer';
 import { authValidation, authController, auth } from '../modules/auth';

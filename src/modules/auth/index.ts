@@ -7,4 +7,4 @@ import * as authValidation from './auth.validation';
 import jwtStrategy from './passport';
 
 export { authController, auth, authService, authValidation, jwtStrategy };
-// export { authController, authValidation };
+
