@@ -21,7 +21,7 @@ export const createArticle = async (articleBody: NewArticle): Promise<IArticleDo
 };
 
 /**
- * Query for Elections
+ * Query for Articles
  * @param {Object} filter - Mongo filter
  * @param {Object} options - Query options
  * @returns {Promise<QueryResult>}

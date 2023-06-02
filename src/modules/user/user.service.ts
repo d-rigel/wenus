@@ -13,6 +13,8 @@ import generateInviteCode from '../utils/generate.invite.code';
 import { tokenService } from '../token';
 import { emailService } from '../email';
 
+// ......
+
 /**
  * Get invite by code or email
  * @param {{ code: string; email: string }} payload
@@ -97,7 +99,7 @@ export const queryUsers = async (filter: Record<string, any>, options: IOptions)
   const users = await User.paginate(filter, options);
   return users;
 };
-
+// ...........
 /**
  * Query for invited users
  * @param {Object} filter - Mongo filter
@@ -106,6 +108,20 @@ export const queryUsers = async (filter: Record<string, any>, options: IOptions)
  */
 export const queryInvites = async (filter: Record<string, any>, options: IOptions): Promise<QueryResult> => {
   return await Invite.paginate(filter, options);
+};
+
+/**
+ * Delete invite by id
+ * @param {mongoose.Types.ObjectId} inviteId
+ * @returns {Promise<IUserDoc | null>}
+ */
+export const deleteInviteById = async (inviteId: mongoose.Types.ObjectId): Promise<IUserDoc | null> => {
+  const user = await getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  await user.remove();
+  return user;
 };
 
 /**

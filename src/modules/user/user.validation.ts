@@ -65,6 +65,19 @@ export const inviteUser = {
   }),
 };
 
+export const getInvites = {
+  query: Joi.object().keys({
+    name: Joi.string(),
+    email: Joi.string(),
+    invitationCode: Joi.string(),
+    searchTerm: Joi.string(),
+    sortBy: Joi.string(),
+    projectBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
+
 export const getInvite = {
   query: Joi.object()
     .keys({

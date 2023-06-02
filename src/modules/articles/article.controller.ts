@@ -52,7 +52,6 @@ export const getArticles = catchAsync(async (req: Request, res: Response) => {
   }
 
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy', 'populate']);
-  // const result = await electionService.queryElections(match, options);
   const result = await articleService.queryArticles(match, { ...options, populate: 'creator' });
   res.send(result);
 });

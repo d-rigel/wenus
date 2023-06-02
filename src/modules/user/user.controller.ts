@@ -81,3 +81,41 @@ export const inviteUser = catchAsync(async (req: Request, res: Response) => {
     'invite_created'
   );
 });
+
+// Get all invites
+export const getInvites = catchAsync(async (req: Request, res: Response) => {
+  const filter = pick(req.query, ['email', 'invitationCode', 'page', 'searchTerm']);
+  let match: any = {};
+  if (filter.email) {
+    match.email = { $regex: filter.email, $options: 'i' };
+  }
+  if (filter.invitationCode) {
+    match.article = { $regex: filter.invitationCode, $options: 'i' };
+  }
+
+  if (filter.searchTerm) {
+    match = {
+      email: { $regex: filter.searchTerm, $options: 'i' },
+      invitationCode: { $regex: filter.searchTerm, $options: 'i' },
+    };
+  }
+
+  const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy', 'populate']);
+  const result = await userService.queryInvites(match, { ...options });
+  res.send(result);
+});
+
+export const getInvite = catchAsync(async (req: Request, res: Response) => {
+  const invite = await userService.getInvite({
+    code: req.query['code'] as string,
+    email: req.query['email'] as string,
+  });
+  return sendResponse(
+    res,
+    invite ? httpStatus.OK : httpStatus.NOT_FOUND,
+    {
+      invite,
+    },
+    'invite_retrieved'
+  );
+});
