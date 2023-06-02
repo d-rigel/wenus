@@ -13,5 +13,9 @@ router.route('/invite/single').post(auth('manageUsers'), validate(userValidation
 router.route('/invites').get(auth('manageUsers'), validate(userValidation.getInvites), userController.getInvites);
 // Get one invite by code or email
 router.route('/invite').get(auth('manageUsers'), validate(userValidation.getInvite), userController.getInvite);
+// get invite by id
+router
+  .route('/invite/:inviteId')
+  .get(auth('manageUsers'), validate(userValidation.getInviteById), userController.getInviteById);
 
 export default router;

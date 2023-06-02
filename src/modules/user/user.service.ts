@@ -115,13 +115,13 @@ export const queryInvites = async (filter: Record<string, any>, options: IOption
  * @param {mongoose.Types.ObjectId} inviteId
  * @returns {Promise<IUserDoc | null>}
  */
-export const deleteInviteById = async (inviteId: mongoose.Types.ObjectId): Promise<IUserDoc | null> => {
-  const user = await getUserById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+export const deleteInviteById = async (inviteId: mongoose.Types.ObjectId): Promise<IInviteDoc | null> => {
+  const invite = await getInviteById(inviteId);
+  if (!invite) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Invite not found');
   }
-  await user.remove();
-  return user;
+  await invite.remove();
+  return invite;
 };
 
 /**

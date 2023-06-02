@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import { Request, Response } from 'express';
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 // import { generate } from 'generate-password';
 import catchAsync from '../utils/catchAsync';
 import ApiError from '../errors/ApiError';
@@ -118,4 +118,21 @@ export const getInvite = catchAsync(async (req: Request, res: Response) => {
     },
     'invite_retrieved'
   );
+});
+
+export const getInviteById = catchAsync(async (req: Request, res: Response) => {
+  if (typeof req.params['inviteId'] === 'string') {
+    const invite = await userService.getInviteById(new mongoose.Types.ObjectId(req.params['inviteId']));
+    if (!invite) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Invite not found');
+    }
+    res.send(invite);
+  }
+});
+
+export const deleteInvite = catchAsync(async (req: Request, res: Response) => {
+  if (typeof req.params['inviteId'] === 'string') {
+    await userService.deleteInviteById(new mongoose.Types.ObjectId(req.params['inviteId']));
+    res.status(httpStatus.NO_CONTENT).send();
+  }
 });

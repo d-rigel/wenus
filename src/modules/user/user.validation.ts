@@ -78,6 +78,12 @@ export const getInvites = {
   }),
 };
 
+export const getInviteById = {
+  params: Joi.object().keys({
+    inviteId: Joi.string().custom(objectId),
+  }),
+};
+
 export const getInvite = {
   query: Joi.object()
     .keys({
