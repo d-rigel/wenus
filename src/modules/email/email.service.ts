@@ -230,14 +230,14 @@ export const sendLoginEmail = async (to: string, name: string, extras: Record<st
  * @param {string} name
  * @returns {Promise<void>}
  */
-export const sendInvitemail = async (to: string, invitationCode: string, name: string, position: string): Promise<void> => {
-  const subject = 'Invitation to CROMS Collation';
+export const sendInvitemail = async (to: string, invitationCode: string, name: string, stack: string): Promise<void> => {
+  const subject = 'Invitation to WENUS Social app';
   // replace this url with the link to the sign up page of your front-end app
   const signUpUrl = `${config.clientUrl}/auth/signup?invitationCode=${invitationCode}`;
   const text = `Hi ${name},
-  You have been invited to CROM Collation as a user applying for the ${position} position. Please click on this link to complete your onboarding: ${signUpUrl}`;
+  You have been invited to WENUS app as a ${stack} engineer. Please click on this link to complete your registration: ${signUpUrl}`;
   const html = `<div style="margin:30px; padding:30px; border:1px solid black; border-radius: 20px 10px;"><h4><strong>Hi ${name},</strong></h4>
-  <p> You have been invited to CROM Collation as a user applying for the ${position} position.</p><p>Please click on this link to complete your onboarding: <a target="_blank" href="${signUpUrl}">onboarding link</a></p></div>`;
+  <p> You have been invited to WENUS app as a  ${stack} engineer.</p><p>Please click on this link to complete your registration: <a target="_blank" href="${signUpUrl}">registration link</a></p></div>`;
   await sendEmail(to, subject, text, html);
 };
 

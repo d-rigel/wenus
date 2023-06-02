@@ -11,6 +11,7 @@ import { emitEvent } from '../utils/emit-event';
 import { IInvite, IInviteDoc, UpdateInviteBody } from './user.invite.interfaces';
 import generateInviteCode from '../utils/generate.invite.code';
 import { tokenService } from '../token';
+import { emailService } from '../email';
 
 /**
  * Get invite by code or email
@@ -167,11 +168,7 @@ export const inviteUser = async (payload: IInvite): Promise<IInviteDoc> => {
     firstName: payload.firstName,
     lastName: payload.lastName,
     email: payload.email,
-    state: payload.state,
-    position: payload.position,
-    institution: payload.institution,
-    opening: payload.opening,
-    election: payload.election,
+    stack: payload.stack,
     invitationCode: generateInviteCode(),
   };
   // create invite
@@ -181,7 +178,7 @@ export const inviteUser = async (payload: IInvite): Promise<IInviteDoc> => {
     inviteData.email,
     inviteData.invitationCode,
     `${inviteData.firstName || ''} ${inviteData.lastName || ''}`,
-    inviteData.position
+    inviteData.stack
   );
 
   return invite;

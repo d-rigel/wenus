@@ -9,5 +9,6 @@ router
   .route('/')
   .post(auth('manageUsers'), singleUpload, validate(userValidation.createUser), userController.createUser)
   .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+router.route('/invite/single').post(auth('manageUsers'), validate(userValidation.inviteUser), userController.inviteUser);
 
 export default router;
