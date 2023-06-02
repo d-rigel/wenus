@@ -8,8 +8,8 @@ import { NewCreatedUser, UpdateUserBody, IUserDoc, NewRegisteredUser } from './u
 import Invite from './user.invite.model';
 import { emitEvent } from '../utils/emit-event';
 // import { IInvite, IInviteDoc, IInviteStatus, UpdateInviteBody } from './user.invite.interfaces';
-import { IInviteDoc, UpdateInviteBody } from './user.invite.interfaces';
-// import generateInviteCode from '../utils/generate.invite.code';
+import { IInvite, IInviteDoc, UpdateInviteBody } from './user.invite.interfaces';
+import generateInviteCode from '../utils/generate.invite.code';
 import { tokenService } from '../token';
 
 /**
@@ -157,32 +157,32 @@ export const deleteUserById = async (userId: mongoose.Types.ObjectId): Promise<I
   return user;
 };
 
-// /**
-//  * Process single user invite
-//  * @param {IInviteDoc} payload
-//  * @returns {Promise<IInviteStatus>}
-//  */
-// export const inviteUser = async (payload: IInvite): Promise<IInviteDoc> => {
-//   const inviteData = {
-//     firstName: payload.firstName,
-//     lastName: payload.lastName,
-//     email: payload.email,
-//     state: payload.state,
-//     position: payload.position,
-//     institution: payload.institution,
-//     opening: payload.opening,
-//     election: payload.election,
-//     invitationCode: generateInviteCode(),
-//   };
-//   // create invite
-//   const invite = await Invite.create(inviteData);
-//   // send invite email
-//   await emailService.sendInvitemail(
-//     inviteData.email,
-//     inviteData.invitationCode,
-//     `${inviteData.firstName || ''} ${inviteData.lastName || ''}`,
-//     inviteData.position
-//   );
+/**
+ * Process single user invite
+ * @param {IInviteDoc} payload
+ * @returns {Promise<IInviteStatus>}
+ */
+export const inviteUser = async (payload: IInvite): Promise<IInviteDoc> => {
+  const inviteData = {
+    firstName: payload.firstName,
+    lastName: payload.lastName,
+    email: payload.email,
+    state: payload.state,
+    position: payload.position,
+    institution: payload.institution,
+    opening: payload.opening,
+    election: payload.election,
+    invitationCode: generateInviteCode(),
+  };
+  // create invite
+  const invite = await Invite.create(inviteData);
+  // send invite email
+  await emailService.sendInvitemail(
+    inviteData.email,
+    inviteData.invitationCode,
+    `${inviteData.firstName || ''} ${inviteData.lastName || ''}`,
+    inviteData.position
+  );
 
-//   return invite;
-// };
+  return invite;
+};

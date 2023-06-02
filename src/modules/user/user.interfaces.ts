@@ -5,14 +5,13 @@ import { AccessAndRefreshTokens } from '../token/token.interfaces';
 export interface IUser {
   firstName: string;
   lastName: string;
-  otherName: string;
+  // otherName: string;
   stack: string;
   email: string;
   password: string;
   hasDefaultPassword: boolean;
   role: string;
   isEmailVerified: boolean;
-  // avatar?: string;
   image?: string;
   failedLoginAttempts: number;
   lockedOutTime: Date | null;

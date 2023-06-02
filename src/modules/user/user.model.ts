@@ -30,10 +30,10 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
         }
       },
     },
-    otherName: {
-      type: String,
-      trim: true,
-    },
+    // otherName: {
+    //   type: String,
+    //   trim: true,
+    // },
     stack: {
       type: String,
       trim: true,
