@@ -16,6 +16,11 @@ router.route('/invite').get(auth('manageUsers'), validate(userValidation.getInvi
 // get invite by id
 router
   .route('/invite/:inviteId')
-  .get(auth('manageUsers'), validate(userValidation.getInviteById), userController.getInviteById);
+  .get(auth('manageUsers'), validate(userValidation.getInviteById), userController.getInviteById)
+  .delete(auth('manageUsers'), validate(userValidation.deleteInvite), userController.deleteInvite);
+
+  router
+  .route('/:userId')
+  .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
 
 export default router;

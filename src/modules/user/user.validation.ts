@@ -92,3 +92,9 @@ export const getInvite = {
     })
     .xor('code', 'email'),
 };
+
+export const deleteInvite = {
+  params: Joi.object().keys({
+    inviteId: Joi.string().custom(objectId),
+  }),
+};
