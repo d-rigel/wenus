@@ -19,8 +19,9 @@ router
   .get(auth('manageUsers'), validate(userValidation.getInviteById), userController.getInviteById)
   .delete(auth('manageUsers'), validate(userValidation.deleteInvite), userController.deleteInvite);
 
-  router
+router
   .route('/:userId')
   .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
+  .patch(auth('manageUsers'), singleUpload, validate(userValidation.updateUser), userController.updateUser);
 
 export default router;

@@ -146,3 +146,22 @@ export const getUser = catchAsync(async (req: Request, res: Response) => {
     res.send(user);
   }
 });
+
+export const updateUser = catchAsync(async (req: Request, res: Response) => {
+  const file = req.file;
+
+  const fileUri: any = getDataUri(file);
+  const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+  const payload = {
+    ...req.body,
+    image: {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    },
+  };
+
+  if (typeof req.params['userId'] === 'string') {
+    const user = await userService.updateUserById(new mongoose.Types.ObjectId(req.params['userId']), payload);
+    res.send(user);
+  }
+});

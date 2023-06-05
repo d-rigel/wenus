@@ -44,8 +44,11 @@ export const updateUser = {
   body: Joi.object()
     .keys({
       email: Joi.string().email(),
-      fistName: Joi.string(),
+      firstName: Joi.string(),
       lastName: Joi.string(),
+      image: Joi.string(),
+      stack: Joi.string(),
+      role: Joi.string(),
     })
     .min(1),
 };
