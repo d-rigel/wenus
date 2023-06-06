@@ -173,21 +173,7 @@ export const deleteUserById = async (userId: mongoose.Types.ObjectId): Promise<I
   }
   // @ts-ignore
   await cloudinary.v2.uploader.destroy(user?.image?.public_id);
-  // if (mongoose.Types.ObjectId.isValid(userId)) {
-  //   const user = await getUserById(userId);
-  //   console.log('userD', user);
-  //   if (!user) {
-  //     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-  //   }
-  //   // const oneArticle: any = await Article.findById({ _id: id });
-  //   // @ignore
-  //   await cloudinary.v2.uploader.destroy(user?.image?.public_id);
 
-  //   // const result = await Article.deleteOne({ _id: id });
-  //   // return result;
-  //   // user.remove();
-  //   // return user;
-  // }
   await user.remove();
   return user;
 };

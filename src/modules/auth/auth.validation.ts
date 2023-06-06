@@ -8,7 +8,7 @@ const registerBody: Record<keyof NewCreatedUser, any> = {
   password: Joi.string().required().custom(password),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  // otherName: Joi.string().required(),
+  gender: Joi.string().optional(),
   stack: Joi.string().required(),
   invitationCode: Joi.string().optional(),
   image: Joi.string().optional(),

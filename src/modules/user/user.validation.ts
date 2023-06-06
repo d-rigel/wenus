@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import { objectId } from '../validate/custom.validation';
 import { NewCreatedUser } from './user.interfaces';
+import { roles } from '../../config/roles';
 
 const createUserBody: Record<keyof NewCreatedUser, any> = {
   email: Joi.string().required().email(),
@@ -8,10 +9,12 @@ const createUserBody: Record<keyof NewCreatedUser, any> = {
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   image: Joi.string().optional(),
+  gender: Joi.string().optional(),
   stack: Joi.string().required(),
   invitationCode: Joi.string().optional(),
-  role: Joi.string().required(),
-  // .valid(...roles),
+  role: Joi.string()
+    .required()
+    .valid(...roles),
 };
 
 export const createUser = {

@@ -5,7 +5,7 @@ import { AccessAndRefreshTokens } from '../token/token.interfaces';
 export interface IUser {
   firstName: string;
   lastName: string;
-  // otherName: string;
+  gender?: string;
   stack: string;
   email: string;
   password: string;

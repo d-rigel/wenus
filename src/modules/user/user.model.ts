@@ -39,9 +39,10 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
       trim: true,
     },
 
-    // avatar: {
-    //   type: String,
-    // },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female'],
+    },
     image: {
       public_id: {
         type: String,
