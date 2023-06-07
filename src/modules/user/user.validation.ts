@@ -52,6 +52,7 @@ export const updateUser = {
       image: Joi.string(),
       stack: Joi.string(),
       role: Joi.string(),
+      gender: Joi.string().optional(),
     })
     .min(1),
 };
