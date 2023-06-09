@@ -5,7 +5,7 @@ import { ICommentDoc } from '../comments/comments.interface';
 export interface IArticle {
   title: string;
   article: string;
-  creator?: IUserDoc | mongoose.Types.ObjectId | undefined;
+  creator: IUserDoc | mongoose.Types.ObjectId | undefined;
   // creator: string;
   image?: string;
   // comments: string[];

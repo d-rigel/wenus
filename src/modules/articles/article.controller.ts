@@ -17,7 +17,8 @@ export const createArticle = catchAsync(async (req: Request, res: Response) => {
   const file = req.file;
   const fileUri: any = getDataUri(file);
   const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
-
+  // @ts-ignore
+  req.body.creator = req.user.id;
   req.body.title = req.body.title;
   req.body.article = req.body.article;
 
@@ -82,7 +83,6 @@ export const updateArticle = catchAsync(async (req: Request, res: Response) => {
     req.body.article = req.body.article;
   }
   if (req.body.image) {
-    // req.body.image = req.body.image;
     req.body.image = {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
@@ -102,7 +102,18 @@ export const likeArticle = catchAsync(async (req: Request, res: Response) => {
     throw new ApiError(httpStatus.BAD_REQUEST, `No resouce with id: ${id}`);
   }
   const oneArticle: any = await Article.findById({ _id: id });
+  // @ts-ignore
+  const index = oneArticle.likes.findIndex((id) => id === String(req.user));
+  console.log('userindex', index);
 
-  const update = await Article.findByIdAndUpdate({ _id: id }, { likes: oneArticle?.likes + 1 }, { new: true });
+  if (index === -1) {
+    oneArticle.likes.push(req.user);
+  } else {
+    // @ts-ignore
+    oneArticle.likes = oneArticle.likes.filter((id) => id !== String(req.user));
+  }
+
+  // const update = await Article.findByIdAndUpdate({ _id: id }, { likes: oneArticle?.likes + 1 }, { new: true });
+  const update = await Article.findByIdAndUpdate({ _id: id }, oneArticle, { new: true });
   res.send(update);
 });

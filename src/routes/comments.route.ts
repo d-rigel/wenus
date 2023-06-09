@@ -12,9 +12,7 @@ router
 
 router
   .route('/:commentId')
-  //   .get(validate(articleValidation.getArticle), articleController.getArticle)
   .delete(validate(commentValidation.deleteComment), commentController.deleteComment)
-  //   .put(singleUpload, validate(articleValidation.updateArticle), articleController.updateArticle)
   .patch(validate(commentValidation.updateComment), commentController.updateComment);
-// .post(validate(articleValidation.createArticleComments), articleController.createArticleComments);
+
 export default router;
