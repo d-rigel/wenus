@@ -8,17 +8,7 @@ import { IOptions } from '../paginate/paginate';
 import mongoose from 'mongoose';
 
 export const createComment = catchAsync(async (req: Request, res: Response) => {
-  // const creator: any = req?.user;
-  const creator: any = {
-    _id: '64462290c7cec914e40b9a2e',
-    firstName: 'John',
-    lastName: 'Graige',
-    email: 'nname@users.com',
-    createdTime: '2023-05-05T12:53:06.197Z',
-    createdAt: '2023-05-05T13:01:42.514Z',
-    updatedAt: '2023-05-05T13:01:42.514Z',
-    __v: 0,
-  };
+  const creator: any = req.user;
 
   const comment = await commentService.createComment(req.body, creator._id);
   res.status(httpStatus.CREATED).send(comment);
@@ -61,16 +51,8 @@ export const updateComment = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const deleteComment = catchAsync(async (req: Request, res: Response) => {
-  const creator: any = {
-    _id: '64462290c7cec914e40b9a2e',
-    firstName: 'John',
-    lastName: 'Graige',
-    email: 'nname@users.com',
-    createdTime: '2023-05-05T12:53:06.197Z',
-    createdAt: '2023-05-05T13:01:42.514Z',
-    updatedAt: '2023-05-05T13:01:42.514Z',
-    __v: 0,
-  };
-  await commentService.deleteComment(req.params['commentId'] as string | mongoose.Types.ObjectId, creator);
+  const creator: any = await req.user;
+  // console.log('creator>>', creator);
+  await commentService.deleteComment(req.params['commentId'] as string | mongoose.Types.ObjectId, creator._id);
   res.status(httpStatus.NO_CONTENT).send();
 });

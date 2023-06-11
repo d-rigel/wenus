@@ -1,18 +1,17 @@
 import express, { Router } from 'express';
 import { commentValidation, commentController } from '../modules/comments';
 import { validate } from '../modules/validate';
-// import singleUpload from '../modules/media/multer';
-
+import { auth } from '../modules/auth';
 const router: Router = express.Router();
 
 router
   .route('/')
-  .post(validate(commentValidation.createComment), commentController.createComment)
-  .get(validate(commentValidation.getComments), commentController.getComments);
+  .post(auth(), validate(commentValidation.createComment), commentController.createComment)
+  .get(auth(), validate(commentValidation.getComments), commentController.getComments);
 
 router
   .route('/:commentId')
-  .delete(validate(commentValidation.deleteComment), commentController.deleteComment)
-  .patch(validate(commentValidation.updateComment), commentController.updateComment);
+  .delete(auth(), validate(commentValidation.deleteComment), commentController.deleteComment)
+  .patch(auth(), validate(commentValidation.updateComment), commentController.updateComment);
 
 export default router;

@@ -7,7 +7,7 @@ export interface IComment {
   content: string | IArticleDoc;
   articleIds?: IArticleDoc | mongoose.Types.ObjectId | undefined;
   articleUserId?: IUserDoc | mongoose.Types.ObjectId | undefined;
-  creator?: IUserDoc | mongoose.Types.ObjectId | undefined | string;
+  creator: IUserDoc | mongoose.Types.ObjectId | undefined | string;
 }
 
 export interface ICommentDoc extends IComment, Document {}

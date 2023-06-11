@@ -15,7 +15,7 @@ import { IArticleDoc, IArticle } from '../articles/article.interface';
 
 /**
  * Get opening by id
- * @param {string | mongoose.ObjectId} id - Opening id
+ * @param {string | mongoose.ObjectId} id - Article id
  * @returns {Promise<ICommentDoc>}
  */
 
@@ -38,24 +38,22 @@ const updateArticles = async (
 export const createComment = async (commentBody: Partial<IComment>, creator: string): Promise<ICommentDoc> => {
   const comtId = new mongoose.Types.ObjectId(`${commentBody.articleIds}`);
   const article: any = await articleService.getArticleById(comtId);
-  // const article: any = await Article.findById(comtId);
-  console.log('see comments', article);
+
   if (!article) {
     throw new ApiError(httpStatus.NOT_FOUND, 'article not found');
   }
 
   commentBody.articleIds = article?._id;
-  // commentBody.creator = new mongoose.Types.ObjectId(creator);
+  commentBody.creator = new mongoose.Types.ObjectId(creator);
 
   const newArticle: any = (await Comment.create({ ...commentBody })).populate('creator');
 
   const comment = article.comments || [];
-  // comment.push(creator);
+
   comment.push({
     creator: new mongoose.Types.ObjectId(creator),
     article: new mongoose.Types.ObjectId(article._id),
   });
-  console.log('comment', comment);
 
   await updateArticles(article._id, {
     comments: comment,
@@ -103,37 +101,57 @@ export const deleteComment = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'Comment does not exist');
   }
   if (mongoose.Types.ObjectId.isValid(id)) {
-    const comment = await Comment.findById({ _id: id });
-    console.log('delete comment', comment);
-    const commentUserId = comment?.creator;
+    // ..............................
+    // const comment = await Comment.findById({ _id: id });
 
-    if (commentUserId === creator) {
-      // delete comment by id
-      await Comment.findByIdAndDelete(id);
-      // delete Comment from Post
-      await Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
-    } else {
+    // console.log('creator', comment?.creator, '=', creator);
+    // if (comment?.creator === creator) {
+    //   // delete comment by id
+    //   await Comment.findByIdAndDelete(id);
+    //   // delete Comment from Post
+    //   await Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+    // } else {
+    //   // throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
+    // }
+
+    // const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+    // return result;
+    // ......................
+    const comment = await Comment.findById({ _id: id });
+    console.log('comment', comment);
+    console.log(comment?.creator, '=', creator);
+
+    // @ts-ignore
+    if (!comment?.creator.equals(creator)) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
     }
-    // const result = await Comment.deleteOne({ _id: id });
+    await Comment.findByIdAndDelete(id);
     const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
     return result;
-    // return deleteCommentFromPost;
   }
 
-  // const comment = await Comment.findById({ articleId: id });
-  const comment = await Comment.findById({ articleIds: id });
-  const commentUserId = comment?.creator;
-  if (commentUserId === creator) {
-    // delete comment by id
-    await Comment.findByIdAndDelete(id);
-    await Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
-  } else {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
-  }
+  // ............................
+  // const comment = await Comment.findById({ articleIds: id });
 
-  // const result = await Comment.deleteOne({ articleId: id });
+  // if (comment?.creator === creator) {
+  //   // delete comment by id
+  //   await Comment.findByIdAndDelete(id);
+  //   await Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+  // } else {
+  //   // throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
+  // }
+
+  // // const result = await Comment.deleteOne({ articleId: id });
+  // const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
+  // return result;
+  // // return result;
+  // ...............................
+  const comment = await Comment.findById({ articleId: id });
+  console.log('comments', comment);
+  // if (comment?.creator !== creator) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
+  // }
+  await Comment.findByIdAndDelete(id);
   const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
   return result;
-  // return result;
 };
