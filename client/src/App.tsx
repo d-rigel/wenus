@@ -1,10 +1,11 @@
 import React from "react";
 import "./scss/App.scss";
+import { MainLayout } from "./layout/MainLayout";
 
 function App() {
   return (
     <div className="App">
-      <h3>Hello word</h3>
+      <MainLayout />
     </div>
   );
 }
