@@ -1,18 +1,19 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
 import { useWindowSize } from "usehooks-ts";
+import { articleActions } from "../../store/store";
 import SearchBox from "./searchBox/SearchBox";
 import TopNavRightBox from "./rightBox/TopNavRightBox";
-import SidebarContext from "../../store/sidebarContext";
+import { useDispatch } from "react-redux";
 
 import classes from "./TopNav.module.scss";
 
 function TopNav() {
-  const sideOpenCtx = useContext(SidebarContext);
   const { width } = useWindowSize();
+  const dispatch = useDispatch();
 
   function openSidebarHandler() {
-    sideOpenCtx.toggleSidebar();
+    dispatch(articleActions.sidebarIsOpen());
     if (width <= 768) document.body.classList.toggle("sidebar__open");
   }
 

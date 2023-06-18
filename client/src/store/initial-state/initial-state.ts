@@ -4,4 +4,5 @@ export const initialState: initialStateType = {
   toggleSidebar: () => {},
   lang: "",
   toggleLaguage: (sLang) => {},
+  theme: "",
 };

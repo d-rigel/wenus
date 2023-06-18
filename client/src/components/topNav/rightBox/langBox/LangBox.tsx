@@ -1,13 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  //   useContext,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Icon } from "@iconify/react";
 import { useOnClickOutside } from "usehooks-ts";
-// import LangContext from "../../../../store/langContext";
+
 import { articleActions } from "../../../../store/store";
 import { useDispatch } from "react-redux";
 import { useLocalStorage } from "usehooks-ts";
@@ -18,8 +12,6 @@ import classes from "./LangBox.module.scss";
 function LangBox() {
   const [showLangBox, setShowLangBox] = useState(false);
   const langBoxRef = useRef<HTMLDivElement>(null);
-  //   const langCtx = useContext(LangContext);
-  //   const lang = langCtx.lang;
 
   const [lang, setLang] = useLocalStorage("language", "en");
 
@@ -65,7 +57,6 @@ function LangBox() {
         className={`${classes.lang_menu} ${showLangBox ? classes.show : ""}`}>
         <div
           onClick={() => {
-            // langCtx.toggleLanguage("en");
             toggleLang("en");
             showBoxHandler();
           }}>
@@ -73,7 +64,6 @@ function LangBox() {
         </div>
         <div
           onClick={() => {
-            // langCtx.toggleLanguage("fa");
             toggleLang("fa");
             showBoxHandler();
           }}>

@@ -3,6 +3,7 @@ export type initialStateType = {
   toggleSidebar: () => void;
   lang: string | null;
   toggleLaguage: (sLang: string) => void;
+  theme: string;
 };
 
 // export type languageType = {
