@@ -1,0 +1,66 @@
+@use "../../scss/abstracts/" as *;
+
+.article_container {
+  @include flex();
+  flex-wrap: wrap;
+}
+
+.article_image {
+  object-fit: cover;
+}
+
+.img_wrapper {
+  @include flex(stretch, center);
+  align-self: center;
+  margin-bottom: 2rem;
+  //   width: 450px;
+  //   height: 450px;
+  //   border-radius: 5%;
+  overflow: hidden;
+  box-shadow: $mainBoxShadow;
+  opacity: 1;
+
+  @media screen and (max-width: 410px) {
+    width: 150px;
+    height: 150px;
+    align-self: center;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 3rem;
+  left: 4rem;
+  color: #fff;
+
+  @media screen and (max-width: 410px) {
+    top: 5rem;
+    right: auto;
+    left: 7rem;
+  }
+}
+
+.img_wrapper:hover {
+  opacity: 0.8;
+  color: #ebebeb;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.time_overlay {
+  @include flex(stretch, space-between);
+}
+.time {
+  font-size: 10px;
+  color: #fff;
+}
+
+.elipses {
+  margin-left: 5rem;
+}
+
+.article_title {
+  @include flex();
+  font-size: 1rem;
+}

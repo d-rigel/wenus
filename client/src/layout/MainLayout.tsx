@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 import classes from "./MainLayout.module.scss";
 
-const MainLayout = () => {
+const MainLayout = ({ children }: any) => {
   const { isOpen } = useSelector((state: RootState) => state);
 
   useEffect(() => {
@@ -26,6 +26,7 @@ const MainLayout = () => {
           } main_wrapper`}>
           <TopNav />
           <Outlet />
+          <div>{children}</div>
         </div>
       </div>
     </div>

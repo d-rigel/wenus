@@ -1,6 +1,6 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import { RootState, articleActions } from "../store";
-import { useLocalStorage } from "usehooks-ts";
+
 
 type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -9,7 +9,7 @@ type AppThunk<ReturnType = void> = ThunkAction<
   AnyAction
 >;
 
-const { sidebarIsOpen, changeLanguage } = articleActions;
+const { sidebarIsOpen } = articleActions;
 
 export function toggleSidebars(): AppThunk {
   return (dispatch) => {
