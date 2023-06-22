@@ -44,7 +44,7 @@ const Article: React.FC = () => {
         </div>
         <div className={classes.btn__wrapper}>
           <div className={classes.btn}>
-            <Button>
+            <Button no__outlined={true}>
               <div className={classes.btn__group}>
                 <div>
                   <Icon
@@ -60,13 +60,13 @@ const Article: React.FC = () => {
             </Button>
           </div>
           <div className={classes.btn}>
-            <Button outline={true}>
+            <Button no__outlined={true}>
               <div className={classes.btn__group}>
-                <div>
-                  <Icon icon="tabler:trash" />
+                <div className={classes.del__btn}>
+                  <Icon className={classes.r__icon} icon="tabler:trash" />
                 </div>
 
-                <p className={classes.likes__group}>Delete</p>
+                <p className={classes.del__btn}>Delete</p>
               </div>
             </Button>
           </div>

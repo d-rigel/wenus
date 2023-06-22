@@ -96,20 +96,19 @@
 .btn__group {
   @include flex(center, center);
   font-size: 1rem;
-  // @media screen and (max-width: 410px) {
-  //   font-size: 2px;
-  // }
 }
 
 .r__icon {
-  @media screen and (max-width: 410px) {
-    display: none;
-  }
   @media screen and (max-width: 768px) {
     display: none;
   }
 }
 
 .likes__group {
+  font-size: 13px;
+}
+
+.del__btn {
+  color: #ff0000;
   font-size: 13px;
 }

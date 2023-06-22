@@ -30,6 +30,12 @@
   color: var(--text-color);
 }
 
+.no__outlined {
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+}
+
 html[dir="rtl"] {
   .btn {
     font-family: iranyekan, "IRANSans", "Tahoma";
