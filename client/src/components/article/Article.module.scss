@@ -64,3 +64,52 @@
   @include flex();
   font-size: 1rem;
 }
+
+.article_details_text {
+  //   border: 2px solid #2a70a5;
+  padding: 20px 0;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+
+.btn__wrapper {
+  @include flex(center, space-between);
+
+  flex-wrap: wrap;
+
+  //   & a {
+  //     flex: 1;
+  //     margin: 0.5rem 0;
+  //   }
+  & button {
+    width: 90%;
+
+    @include tablet {
+      margin: 0;
+    }
+  }
+}
+
+.btn__group {
+  @include flex(center, center);
+  font-size: 1rem;
+  // @media screen and (max-width: 410px) {
+  //   font-size: 2px;
+  // }
+}
+
+.r__icon {
+  @media screen and (max-width: 410px) {
+    display: none;
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.likes__group {
+  font-size: 13px;
+}

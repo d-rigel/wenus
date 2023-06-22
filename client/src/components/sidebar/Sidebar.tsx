@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import sidebarNav from "../../config/sidebarNav";
-import images from "../../constants/images";
+// import images from "../../constants/images";
 import { Icon } from "@iconify/react";
 import classes from "./Sidebar.module.scss";
 
@@ -37,7 +37,8 @@ export const Sidebar = () => {
   return (
     <div className={`${classes.sidebar} ${!isOpen && classes.sidebar_close}`}>
       <div className={classes.sidebar__logo}>
-        <img src={images.logo} alt="bar" />
+        {/* <img src={images.logo} alt="bar" /> */}
+        <h4 className={classes.wenus}>wenus</h4>
       </div>
       <div className={classes.sidebar__menu}>
         {sidebarNav.map((nav, index) => (
