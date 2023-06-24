@@ -1,0 +1,6 @@
+@use "../../scss/abstracts/index" as *;
+
+.ar__container {
+  @include flex();
+  flex-wrap: wrap;
+}

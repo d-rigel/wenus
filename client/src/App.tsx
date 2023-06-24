@@ -1,16 +1,15 @@
 import React from "react";
 import "./scss/App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// import MainLayout from "./layout/MainLayout";
-import MainPage from "./pages/MainPage";
+import ArticleDetails from "./pages/article-details/ArticleDetails";
+import MainPage from "./pages/main-page/MainPage";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        {/* <MainLayout /> */}
-        <MainPage />
+        {/* <MainPage /> */}
+        <ArticleDetails />
       </div>
     </BrowserRouter>
   );

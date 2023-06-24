@@ -1,0 +1,9 @@
+@use "../../scss/abstracts/index" as *;
+
+.comment__section {
+  @include flex();
+
+  @media screen and (max-width: $tablet-width) {
+    flex-direction: column;
+  }
+}

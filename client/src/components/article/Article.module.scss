@@ -3,6 +3,8 @@
 .article_container {
   @include flex();
   flex-wrap: wrap;
+  margin-bottom: 7px;
+  margin-right: 5px;
 }
 
 .article_image {

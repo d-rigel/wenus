@@ -9,7 +9,7 @@ import { Icon } from "@iconify/react";
 const Article: React.FC = () => {
   return (
     <div className={classes.article_container}>
-      <Card>
+      <Card small__card={true}>
         <div className={classes.img_wrapper}>
           <img
             className={classes.article_image}

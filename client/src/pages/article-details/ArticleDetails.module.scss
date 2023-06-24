@@ -1,0 +1,50 @@
+@use "../../scss/abstracts/index" as *;
+
+.detail__container {
+  @include flex();
+  border-radius: $smallBorderRadius;
+  margin: 10px;
+  flex: 1;
+}
+
+.section {
+  font: optional;
+}
+
+.comments__container {
+  @include flex();
+}
+
+.img__detail {
+  border-radius: $smallBorderRadius;
+  object-fit: cover;
+  width: 100%;
+  max-height: 600px;
+}
+
+.image__section {
+  @include flex;
+  flex-direction: column;
+}
+
+.edit__btn {
+  background-color: inherit;
+  // color: #000;
+  padding: 4px 16px;
+  margin: 4px 0;
+  width: 100%;
+  border-radius: $smallBorderRadius;
+  cursor: pointer;
+  font-weight: bold;
+  outline: #808080;
+  @media screen and (max-width: $tablet-width) {
+    padding: 2px 8px;
+    margin: 1px 0;
+    width: 100%;
+  }
+}
+
+.edit__btn:hover {
+  background-color: #808080;
+  color: #fff;
+}
