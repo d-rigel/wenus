@@ -1,0 +1,116 @@
+@use "../../scss/abstracts/" as *;
+
+.article_container {
+  @include flex();
+  flex-wrap: wrap;
+  margin-bottom: 7px;
+  margin-right: 5px;
+}
+
+.article_image {
+  object-fit: cover;
+}
+
+.img_wrapper {
+  @include flex(stretch, center);
+  align-self: center;
+  margin-bottom: 2rem;
+  //   width: 450px;
+  //   height: 450px;
+  //   border-radius: 5%;
+  overflow: hidden;
+  box-shadow: $mainBoxShadow;
+  opacity: 1;
+
+  @media screen and (max-width: 410px) {
+    width: 150px;
+    height: 150px;
+    align-self: center;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 3rem;
+  left: 4rem;
+  color: #fff;
+
+  @media screen and (max-width: 410px) {
+    top: 5rem;
+    right: auto;
+    left: 7rem;
+  }
+}
+
+.img_wrapper:hover {
+  opacity: 0.8;
+  color: #ebebeb;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.time_overlay {
+  @include flex(stretch, space-between);
+}
+.time {
+  font-size: 10px;
+  color: #fff;
+}
+
+.elipses {
+  margin-left: 5rem;
+}
+
+.article_title {
+  @include flex();
+  font-size: 1rem;
+}
+
+.article_details_text {
+  //   border: 2px solid #2a70a5;
+  padding: 20px 0;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+
+.btn__wrapper {
+  @include flex(center, space-between);
+
+  flex-wrap: wrap;
+
+  //   & a {
+  //     flex: 1;
+  //     margin: 0.5rem 0;
+  //   }
+  & button {
+    width: 90%;
+
+    @include tablet {
+      margin: 0;
+    }
+  }
+}
+
+.btn__group {
+  @include flex(center, center);
+  font-size: 1rem;
+}
+
+.r__icon {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.likes__group {
+  font-size: 13px;
+}
+
+.del__btn {
+  color: #ff0000;
+  font-size: 13px;
+}
