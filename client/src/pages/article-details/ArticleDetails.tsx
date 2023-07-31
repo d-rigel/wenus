@@ -14,7 +14,7 @@ const ArticleDetails = () => {
             <h3 className={classes.title}>Article title</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem cum error laboriosam cumque quod enim? Aperiam
+              Exercitationem cum error laboriosam cumque quod enim? 
               fuga, doloremque sint numquam perferendis, debitis ducimus earum
               quis rerum pariatur totam, ad sapiente.
             </p>
