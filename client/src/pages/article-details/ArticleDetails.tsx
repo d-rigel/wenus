@@ -13,7 +13,7 @@ const ArticleDetails = () => {
           <div className={classes.section}>
             <h3 className={classes.title}>Article title</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur adipisicing.
               Exercitationem cum error laboriosam cumque quod enim? Aperiam
               fuga, doloremque sint numquam perferendis, debitis ducimus earum
               quis rerum pariatur totam, ad sapiente.
