@@ -34,12 +34,12 @@ const envVarsSchema = Joi.object()
     MAILGUN_API_KEY: Joi.string().required().description('Mailgun API key'),
     MAILGUN_DOMAIN: Joi.string().required().description('Mailgun domain'),
     MAILGUN_USERNAME: Joi.string().required().description('Mailgun username'),
-    IDENTITYPASS_TEST_SECRET_KEY: Joi.string().required().description('Identity pass test secret key'),
-    IDENTITYPASS_TEST_PUBLIC_KEY: Joi.string().required().description('Identity pass test public key'),
-    IDENTITYPASS_SECRET_KEY: Joi.string().required().description('Identity pass secret key'),
-    IDENTITYPASS_PUBLIC_KEY: Joi.string().required().description('Identity pass public key'),
-    IDENTITYPASS_APP_ID: Joi.string().required().description('Identity pass app id'),
-    IDENTITYPASS_BASE_URL: Joi.string().required().description('Identity pass base url'),
+    // IDENTITYPASS_TEST_SECRET_KEY: Joi.string().required().description('Identity pass test secret key'),
+    // IDENTITYPASS_TEST_PUBLIC_KEY: Joi.string().required().description('Identity pass test public key'),
+    // IDENTITYPASS_SECRET_KEY: Joi.string().required().description('Identity pass secret key'),
+    // IDENTITYPASS_PUBLIC_KEY: Joi.string().required().description('Identity pass public key'),
+    // IDENTITYPASS_APP_ID: Joi.string().required().description('Identity pass app id'),
+    // IDENTITYPASS_BASE_URL: Joi.string().required().description('Identity pass base url'),
   })
   .unknown();
 
@@ -117,14 +117,14 @@ const config = {
   //       bucket: 'inec-croms',
   //     },
   //   },
-  identityPass: {
-    publicKey: envVars.IDENTITYPASS_PUBLIC_KEY,
-    secretKey: envVars.IDENTITYPASS_SECRET_KEY,
-    testPublicKey: envVars.IDENTITYPASS_TEST_PUBLIC_KEY,
-    testSecretKey: envVars.IDENTITYPASS_TEST_SECRET_KEY,
-    appId: envVars.IDENTITYPASS_APP_ID,
-    baseUrl: envVars.IDENTITYPASS_BASE_URL,
-  },
+  // identityPass: {
+  //   publicKey: envVars.IDENTITYPASS_PUBLIC_KEY,
+  //   secretKey: envVars.IDENTITYPASS_SECRET_KEY,
+  //   testPublicKey: envVars.IDENTITYPASS_TEST_PUBLIC_KEY,
+  //   testSecretKey: envVars.IDENTITYPASS_TEST_SECRET_KEY,
+  //   appId: envVars.IDENTITYPASS_APP_ID,
+  //   baseUrl: envVars.IDENTITYPASS_BASE_URL,
+  // },
   clientUrl: envVars.CLIENT_URL,
 };
 
