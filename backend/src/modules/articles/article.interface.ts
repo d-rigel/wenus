@@ -2,6 +2,8 @@ import mongoose, { Model, Document } from 'mongoose';
 import { QueryResult } from '../paginate/paginate';
 import { IUserDoc } from '../user/user.interfaces';
 import { ICommentDoc } from '../comments/comments.interface';
+
+
 export interface IArticle {
   title: string;
   article: string;

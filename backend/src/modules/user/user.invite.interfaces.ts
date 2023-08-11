@@ -10,7 +10,7 @@ export interface IInvite {
   image?: string;
   role?: string;
   isUsed?: boolean;
-  state: string;
+  // state: string;
 }
 
 export interface IInviteDoc extends IInvite, Document {}

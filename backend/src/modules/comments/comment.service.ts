@@ -118,9 +118,7 @@ export const deleteComment = async (
     // return result;
     // ......................
     const comment = await Comment.findById({ _id: id });
-    console.log('comment', comment);
-    console.log(comment?.creator, '=', creator);
-
+    
     // @ts-ignore
     if (!comment?.creator.equals(creator)) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
@@ -147,10 +145,6 @@ export const deleteComment = async (
   // // return result;
   // ...............................
   const comment = await Comment.findById({ articleId: id });
-  console.log('comments', comment);
-  // if (comment?.creator !== creator) {
-  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
-  // }
   await Comment.findByIdAndDelete(id);
   const result: any = Article.findByIdAndUpdate(comment?.articleIds, { $pull: { comments: id } });
   return result;
