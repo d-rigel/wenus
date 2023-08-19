@@ -90,7 +90,7 @@ export const getInvites = catchAsync(async (req: Request, res: Response) => {
     match.email = { $regex: filter.email, $options: 'i' };
   }
   if (filter.invitationCode) {
-    match.article = { $regex: filter.invitationCode, $options: 'i' };
+    match.invitationCode = { $regex: filter.invitationCode, $options: 'i' };
   }
 
   if (filter.searchTerm) {
