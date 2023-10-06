@@ -17,6 +17,7 @@ import { ApiError, errorConverter, errorHandler } from './modules/errors';
 // import routes from './routes/v1';
 // import { upload } from './modules/media/multer';
 import routes from './routes/index';
+// import * as swaggerDocument from "./swaggers.json"
 
 const app: Express = express();
 
@@ -30,6 +31,7 @@ if (config.env !== 'test') {
   app.use(morgan.successHandler);
   app.use(morgan.errorHandler);
 }
+
 
 // set security HTTP headers
 app.use(helmet());
@@ -75,3 +77,6 @@ app.use(errorConverter);
 app.use(errorHandler);
 
 export default app;
+
+
+
