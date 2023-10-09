@@ -41,7 +41,6 @@ router.post('/verify-email', validate(authValidation.verifyEmail), authControlle
  *             required:
  *               - firstName
  *               - lastName
- *               - mobileNumber
  *               - email
  *               - password
  *             properties:
@@ -57,12 +56,18 @@ router.post('/verify-email', validate(authValidation.verifyEmail), authControlle
  *                 type: string
  *                 minLength: 8
  *                 description: Must contain at least one number and one letter
+ *               gender:
+ *                 type: string
+ *               stack:
+ *                 type: string
+ *               image:
+ *                 type: string
  *             examples:
  *               example-1:
  *                 value:
  *                   name: fake namekkjjkk
  *                   email: fake@example.com
- *                   password: password1
+ *                   password: p@Pasword123
  *     responses:
  *       "201":
  *         description: Created
@@ -78,6 +83,55 @@ router.post('/verify-email', validate(authValidation.verifyEmail), authControlle
  *       "400":
  *         $ref: '#/components/responses/DuplicateEmail'
  */
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Login
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *                 format: password
+ *             example:
+ *               email: fake@example.com
+ *               password: password1
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 tokens:
+ *                   $ref: '#/components/schemas/AuthTokens'
+ *       "401":
+ *         description: Invalid email or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               code: 401
+ *               message: Invalid email or password
+ */
+
 
 
 export default router;

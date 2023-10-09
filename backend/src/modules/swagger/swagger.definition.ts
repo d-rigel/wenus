@@ -5,7 +5,6 @@ const swaggerDefinition = {
     info: {
       title: 'WENUS application API documentation',
       version: '0.0.1',
-      // version: '1.0.0',
       description: 'This is the backend server application for WENUS project',
       license: {
         name: 'MIT',
