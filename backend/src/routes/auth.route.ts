@@ -12,12 +12,13 @@ router.post('/refresh-tokens', validate(authValidation.refreshTokens), authContr
 router.post('/forgot-password', validate(authValidation.forgotPassword), authController.forgotPassword);
 router.post('/reset-password', validate(authValidation.resetPassword), authController.resetPassword);
 router.post('/change-password', auth(), validate(authValidation.changePassword), authController.changePassword);
+router.post('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
 router.post(
   '/resend-verification-email',
   validate(authValidation.resendVerificationEmail),
   authController.resendVerificationEmail
 );
-router.post('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
+
 
 /**
  * @swagger
@@ -259,6 +260,95 @@ router.post('/verify-email', validate(authValidation.verifyEmail), authControlle
  *               code: 401
  *               message: Password reset failed
  */
+
+/**
+ * @swagger
+ * /auth/change-password:
+ *   post:
+ *     summary: Change password
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newPassword
+ *               - currentPassword
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *               currentPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *             example:
+ *               newPassword: password2
+ *               currentPassword: password1
+ *     responses:
+ *       "204":
+ *         description: No content
+ *       "401":
+ *         description: change Password failed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               code: 401
+ *               message: change password failed
+ */
+
+
+/**
+ * @swagger
+ * /auth/verify-email:
+ *   post:
+ *     summary: verify email
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: query
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The verify email token
+ *     responses:
+ *       "204":
+ *         description: No content
+ *       "401":
+ *         description: verify email failed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               code: 401
+ *               message: verify email failed
+ */
+
+
+/**
+ * @swagger
+ * /auth/resend-verification-email:
+ *   post:
+ *     summary: resend verification email
+ *     description: An email will be sent to verify email.
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "204":
+ *         description: No content
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ */
+
 
 
 
