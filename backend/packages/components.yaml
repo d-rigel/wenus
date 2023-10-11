@@ -98,23 +98,22 @@ components:
         role:
           type: string
           enum: [user, admin]
-        position:
+        stack:
           type: string
-        mobileNumber:
+        gender:
           type: string
-        universityCode:
+        image:
           type: string
-        invitationCode:
-          type: string
+        invitationCode: string
       example:
         email: 'john@doe.com'
         firstName: 'John'
         lastName: 'Doe'
         role: 'user'
-        position: 'Software Engineer'
-        mobileNumber: '1234567890'
-        universityCode: '123456'
-        invitationCode: '123456'
+        stack: 'Software Engineer'
+        gender: 'Female'
+        image: 'example.jpg'
+        invitationCode: '2393664425'
 
     AuthTokens:
       type: object
