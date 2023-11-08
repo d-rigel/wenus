@@ -25,6 +25,25 @@ components:
         image: example.png
         role: user
 
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        article:
+          type: string
+        image:
+          type: string
+        originalname:
+          type: string
+      example:
+        id: 5ebac534954b54139806c112
+        title: fake aritlce
+        article: This is a fake article body
+        image: example.png
+
     Token:
       type: object
       properties:
