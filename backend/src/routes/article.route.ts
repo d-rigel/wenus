@@ -237,14 +237,14 @@ router
  *         $ref: '#/components/responses/NotFound'
  * 
  *   patch:
- *     summary: Like an article/post
+ *     summary: Like or unlike article/post
  *     description: Logged in users can like their posts or other peoples post. 
  *     tags: [Articles]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: articleId
  *         required: true
  *         schema:
  *           type: string
@@ -256,16 +256,9 @@ router
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               user:
  *                 type: string
- *               article:
- *                 type: string
- *               image: 
- *                  type: string
- *             example:
- *               title: fake title
- *               article: this is a fake article title
- *               image: example.png
+ *                 description: The ID of the user who is performing the action.
  *     responses:
  *       "200":
  *         description: OK
