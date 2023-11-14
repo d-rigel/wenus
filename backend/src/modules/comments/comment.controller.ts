@@ -6,6 +6,8 @@ import pick from '../utils/pick';
 import { IOptions } from '../paginate/paginate';
 // import { NewComment } from './comments.interface';
 import mongoose from 'mongoose';
+import Comment from './comments.model';
+import { ApiError } from '../errors';
 
 export const createComment = catchAsync(async (req: Request, res: Response) => {
   const creator: any = req.user;
@@ -56,3 +58,27 @@ export const deleteComment = catchAsync(async (req: Request, res: Response) => {
   await commentService.deleteComment(req.params['commentId'] as string | mongoose.Types.ObjectId, creator._id);
   res.status(httpStatus.NO_CONTENT).send();
 });
+
+// Like a comment
+export const likeComment = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params['commentId'] as string | mongoose.Types.ObjectId;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, `No resouce with id: ${id}`);
+  }
+  const oneComment: any = await Comment.findById({ _id: id });
+  // @ts-ignore
+  const index = oneComment.likes.findIndex((id) => id === String(req.user));
+  console.log('userindex', index);
+
+  if (index === -1) {
+    oneComment.likes.push(req.user);
+  } else {
+    // @ts-ignore
+    oneComment.likes = oneComment.likes.filter((id) => id !== String(req.user));
+  }
+
+  
+  const update = await Comment.findByIdAndUpdate({ _id: id }, oneComment, { new: true });
+  res.send(update);
+});
+

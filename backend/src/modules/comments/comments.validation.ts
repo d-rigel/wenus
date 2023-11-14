@@ -4,7 +4,15 @@ import { NewComment } from './comments.interface';
 // 'articleIds' | 'creator' | 'articleUserId'
 const createCommentBody: Record<keyof NewComment, any> = {
   content: Joi.string().required(),
-  // likes: Joi.string().optional(),
+  likes: Joi.string().optional(),
+  articleIds: Joi.string().optional(),
+  creator: Joi.string().optional(),
+  articleUserId: Joi.string().optional,
+};
+
+const createLikeBody: Record<keyof NewComment, any> = {
+  content: Joi.string().optional(),
+  likes: Joi.string().optional(),
   articleIds: Joi.string().optional(),
   creator: Joi.string().optional(),
   articleUserId: Joi.string().optional,
@@ -44,6 +52,13 @@ export const updateComment = {
     commentId: Joi.string().required(),
   }),
   body: Joi.object().keys(createCommentBody),
+};
+
+export const likeComment = {
+  params: Joi.object().keys({
+    commentId: Joi.string().required(),
+  }),
+  body: Joi.object().keys(createLikeBody),
 };
 
 // export const likeArticle = {

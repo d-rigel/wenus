@@ -6,8 +6,6 @@ const createArticleBody: Record<keyof Omit<NewArticle, 'articleId' | 'creator'>,
   title: Joi.string().required(),
   article: Joi.string().required(),
   image: Joi.string().optional(),
-
-  // comments: Joi.string().optional(),
   comments: Joi.array().items(Joi.string()).optional(),
   likes: Joi.number().optional(),
   createdTime: Joi.string().optional(),
@@ -18,7 +16,6 @@ const likeArticleBody: Record<keyof Omit<NewArticle, 'articleId' | 'creator'>, a
   article: Joi.string().optional(),
   image: Joi.string().optional(),
   comments: Joi.array().items(Joi.string()),
-  // comments: Joi.string().optional(),
   likes: Joi.number().optional(),
   createdTime: Joi.string().optional(),
 };

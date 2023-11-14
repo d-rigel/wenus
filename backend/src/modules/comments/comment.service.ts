@@ -120,7 +120,7 @@ export const deleteComment = async (
     const comment = await Comment.findById({ _id: id });
     
     // @ts-ignore
-    if (!comment?.creator.equals(creator)) {
+    if (!comment?.creator?.equals(creator)) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid user');
     }
     await Comment.findByIdAndDelete(id);

@@ -13,6 +13,7 @@ const commentSchema = new mongoose.Schema<ICommentDoc, ICommentModel>(
     creator: { type: mongoose.Types.ObjectId, ref: 'User' },
     articleIds: { type: mongoose.Types.ObjectId, ref: 'Article' },
     articleUserId: mongoose.Types.ObjectId,
+    likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
   },
   {
     timestamps: true,
