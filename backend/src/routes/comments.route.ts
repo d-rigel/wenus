@@ -12,7 +12,7 @@ router
 router
   .route('/:commentId')
   .delete(auth(), validate(commentValidation.deleteComment), commentController.deleteComment)
-  .patch(auth(), validate(commentValidation.updateComment), commentController.updateComment)
-  .patch(auth(), validate(commentValidation.likeComment), commentController.likeComment);
+  .put(auth(), validate(commentValidation.updateComment), commentController.updateComment)
+  .patch(auth(), validate(commentValidation.likeComments), commentController.likeComment);
 
 export default router;

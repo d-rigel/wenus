@@ -2,19 +2,19 @@ import Joi from 'joi';
 // import { objectId } from '../validate/custom.validation';
 import { NewComment } from './comments.interface';
 // 'articleIds' | 'creator' | 'articleUserId'
-const createCommentBody: Record<keyof NewComment, any> = {
-  content: Joi.string().required(),
+const createCommentBody: Record<keyof Omit<NewComment, 'articleIds' | "creator">, any> = {
+  comment: Joi.string().required(),
   likes: Joi.string().optional(),
-  articleIds: Joi.string().optional(),
-  creator: Joi.string().optional(),
+  // articleIds: Joi.string().optional(),
+  // creator: Joi.string().optional(),
   articleUserId: Joi.string().optional,
 };
 
-const createLikeBody: Record<keyof NewComment, any> = {
-  content: Joi.string().optional(),
-  likes: Joi.string().optional(),
-  articleIds: Joi.string().optional(),
-  creator: Joi.string().optional(),
+const createLikeBody: Record<keyof Omit<NewComment, 'articleIds' | "creator"> , any> = {
+  comment: Joi.string().optional(),
+  likes: Joi.number().optional(),
+  // articleIds: Joi.string().optional(),
+  // creator: Joi.string().optional(),
   articleUserId: Joi.string().optional,
 };
 
@@ -24,7 +24,7 @@ export const createComment = {
 
 export const getComments = {
   query: Joi.object().keys({
-    content: Joi.string().optional(),
+    comment: Joi.string().optional(),
     createdAt: Joi.string().optional(),
     articleIds: Joi.string().optional(),
     searchTerm: Joi.string().optional(),
@@ -54,7 +54,7 @@ export const updateComment = {
   body: Joi.object().keys(createCommentBody),
 };
 
-export const likeComment = {
+export const likeComments = {
   params: Joi.object().keys({
     commentId: Joi.string().required(),
   }),

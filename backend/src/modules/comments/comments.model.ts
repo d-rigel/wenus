@@ -6,7 +6,7 @@ import { ICommentModel, ICommentDoc } from './comments.interface';
 
 const commentSchema = new mongoose.Schema<ICommentDoc, ICommentModel>(
   {
-    content: {
+    comment: {
       type: String,
       required: true,
     },

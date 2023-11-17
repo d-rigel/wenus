@@ -21,6 +21,10 @@ const defaultIRoute: IRoute[] = [
     path: '/comment',
     route: commentRoute,
   },
+  // {
+  //   path: '/comment/like',
+  //   route: commentRoute,
+  // },
   {
     path: '/users',
     route: userRoute,
